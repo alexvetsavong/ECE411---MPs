@@ -1006,6 +1006,8 @@ Language) file named ``run.do``. To test your design, execute the following from
 
     > do run.do
 
+In order to launch ModelSim and view waveforms, run the ``vsim`` command without the ``-c`` option. Synthesis is not necessary for this MP, and trying to synthesize using Quartus may cause errors.
+
 Student Self-Grading
 ==========
 
