@@ -32,25 +32,52 @@ task reset();
     ##1;
 endtask : reset
 
+task start();
+    itf.start <= 1'b1;
+    ##1
+    itf.start <= 1'b0;
+endtask : start
+
 // error_e defined in package mult_types in file ../include/types.sv
 // Asynchronously reports error in DUT to grading harness
 function void report_error(error_e error);
     itf.tb_report_dut_error(error);
 endfunction : report_error
 
+function result_t spec_output(int a, int b);
+    return a*b;
+endfunction : spec_output
 
 initial itf.reset_n = 1'b0;
 initial begin
     reset();
     /********************** Your Code Here *****************************/
-    
+    //generate stimuli
+    for (int i = 0; i < 9'b100000000; i++) begin
+        for (int j = 0; j < 9'b100000000; j++) begin
+            // load operands into multiplier
+            itf.multiplicand <= i;
+            itf.multiplier <= j;
+            ##1; // wait for values to get loaded
 
+            // start the multiplier
+            start();
+            
+            // TODO: begin coverage for run states
+            // checks for the correct product in product_o
+            @(tb_clk iff (itf.done == 1'b1)); // wait for dut to be in done state
+            assert (itf.product == spec_output(i,j))
+              else begin
+                $error ("%0d: %0t: BAD_PRODUCT error detected", `__LINE__, $time);
+                report_error(BAD_PRODUCT);
+              end
+            reset();
+        end
+    end
     /*******************************************************************/
     itf.finish(); // Use this finish task in order to let grading harness
                   // complete in process and/or scheduled operations
     $error("Improper Simulation Exit");
 end
-
-
 endmodule : testbench
 `endif
