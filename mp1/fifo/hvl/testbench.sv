@@ -38,6 +38,7 @@ endfunction : report_error
 
 word_t data; 
 int quesz;
+word_t spec_q[$:(cap_p-1)] = {};
 
 task enqueue();
     @(tb_clk);
@@ -71,15 +72,23 @@ initial begin
     /************************ Your Code Here ***********************/
     // Feel free to make helper tasks / functions, initial / always blocks, etc.
     
+
     //enqueue test covers
     for(int i = 0; i < cap_p; i++) begin
         @(tb_clk);
         data <= i;
         enqueue();
+        spec_q.push_back(data);
     end
 
     //dequeue test covers
     for(int i = quesz; i > 0; i--) begin
+        $display("spec front: %d, dut front: %d", spec_q[0], itf.data_o);
+        assert (itf.data_o == spec_q.pop_front())
+        else begin
+            $error("%0d: %0t: %s error detected", `__LINE__, $time, "Incorrect data on yumi_i");
+            $report_error (INCORRECT_DATA_O_ON_YUMI_I);
+        end
         dequeue();
     end
 
@@ -94,10 +103,16 @@ initial begin
         end
 
         if(quesz < cap_p && quesz > 1) begin
-            // $display("enqueueing = %d, dequeueing = %d", data, itf.data_o);
             both(); // cover for fifo's of size [1, cap_p - 1]
-            // $display("size of queue = %d", quesz);
         end
+    end
+
+    @(tb_clk);
+    reset();
+    assert (itf.rdy == 1'b1)
+    else begin
+        $error ("%0d: %0t: %s error detected", `__LINE__, $time, "Reset does not cause ready_o");
+        report_error (RESET_DOES_NOT_CAUSE_READY_O);
     end
 
     /***************************************************************/
