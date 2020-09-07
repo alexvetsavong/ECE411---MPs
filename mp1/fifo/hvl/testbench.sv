@@ -37,26 +37,33 @@ endfunction : report_error
 // DO NOT MODIFY CODE ABOVE THIS LINE
 
 word_t data; 
-int ctr;
+int quesz;
 
 task enqueue();
+    @(tb_clk);
     itf.data_i <= data;
-    @(posedge tb_clk)
     itf.valid_i <= itf.rdy;
-    ctr++;
+    @(tb_clk);
+    itf.valid_i <= 1'b0;
+    quesz++;
 endtask : enqueue
 
 task dequeue();
-    @(posedge tb_clk)
+    @(tb_clk);
     itf.yumi <= itf.valid_o;
-    ctr--;
+    @(tb_clk);
+    itf.yumi <= 1'b0;
+    quesz--;
 endtask: dequeue
 
 task both();
-    @(posedge tb_clk)
+    @(tb_clk);
     itf.data_i <= data;
-    itf.valid_i <= itf.rdy;
     itf.yumi <= itf.valid_o;
+    itf.valid_i <= itf.rdy;
+    // ##1;
+    // itf.valid_i <= 1'b0;
+    // itf.yumi <= 1'b0;
 endtask : both
 
 initial begin
@@ -66,24 +73,31 @@ initial begin
     
     //enqueue test covers
     for(int i = 0; i < cap_p; i++) begin
-        data <= i;
         @(tb_clk);
+        data <= i;
         enqueue();
     end
 
     //dequeue test covers
-    for(int i = ctr; i > 0; i--) begin
+    for(int i = quesz; i > 0; i--) begin
         dequeue();
     end
 
     // simultaneous tests
     for(int i = 0; i < cap_p; i++) begin 
+        data <= 0;
+        quesz <= 0;
+
         for(int j = (i+1); j > 0; j--) begin
-            data <= j + (i*(i+1));
             enqueue();
-            $display("enqueued i = %d", i);
+            data++;
         end
-        both();
+
+        if(quesz < cap_p && quesz > 1) begin
+            // $display("enqueueing = %d, dequeueing = %d", data, itf.data_o);
+            both(); // cover for fifo's of size [1, cap_p - 1]
+            // $display("size of queue = %d", quesz);
+        end
     end
 
     /***************************************************************/
