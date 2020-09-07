@@ -36,11 +36,55 @@ endfunction : report_error
 
 // DO NOT MODIFY CODE ABOVE THIS LINE
 
+word_t data; 
+int ctr;
+
+task enqueue();
+    itf.data_i <= data;
+    @(posedge tb_clk)
+    itf.valid_i <= itf.rdy;
+    ctr++;
+endtask : enqueue
+
+task dequeue();
+    @(posedge tb_clk)
+    itf.yumi <= itf.valid_o;
+    ctr--;
+endtask: dequeue
+
+task both();
+    @(posedge tb_clk)
+    itf.data_i <= data;
+    itf.valid_i <= itf.rdy;
+    itf.yumi <= itf.valid_o;
+endtask : both
+
 initial begin
     reset();
     /************************ Your Code Here ***********************/
     // Feel free to make helper tasks / functions, initial / always blocks, etc.
+    
+    //enqueue test covers
+    for(int i = 0; i < cap_p; i++) begin
+        data <= i;
+        @(tb_clk);
+        enqueue();
+    end
 
+    //dequeue test covers
+    for(int i = ctr; i > 0; i--) begin
+        dequeue();
+    end
+
+    // simultaneous tests
+    for(int i = 0; i < cap_p; i++) begin 
+        for(int j = (i+1); j > 0; j--) begin
+            data <= j + (i*(i+1));
+            enqueue();
+            $display("enqueued i = %d", i);
+        end
+        both();
+    end
 
     /***************************************************************/
     // Make sure your test bench exits by calling itf.finish();
