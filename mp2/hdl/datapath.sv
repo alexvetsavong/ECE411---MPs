@@ -95,13 +95,13 @@ pc_register pc_reg(
 
 // instantiate regfile
 rv32i_word rs1_out, rs2_out;
-rv32i_word regfile_mux_out;
+rv32i_word regfilemux_out;
 
 regfile regfile(
     .clk (clk),
     .rst (rst),
     .load (load_regfile),
-    .in (regfile_mux_out),
+    .in (regfilemux_out),
     .src_a (rs1),
     .src_b (rs2),
     .dest (rd),
@@ -191,17 +191,17 @@ always_comb begin : MUXES
     endcase 
 
     unique case(regfilemux_sel) 
-        regfilemux::alu_out: regfile_mux_out = alu_out;
-        regfilemux::br_en: regfile_mux_out = {31'd0, br_en};
-        regfilemux::u_imm: regfile_mux_out = u_imm;
-        regfilemux::lw: regfile_mux_out = mdrreg_out;
+        regfilemux::alu_out: regfilemux_out = alu_out;
+        regfilemux::br_en: regfilemux_out = {31'd0, br_en};
+        regfilemux::u_imm: regfilemux_out = u_imm;
+        regfilemux::lw: regfilemux_out = mdrreg_out;
         default: `BAD_MUX_SEL;
         /* implement these for checkpoint 2 */
-        regfilemux::pc_plus4: regfile_mux_out = alu_out;
-        regfilemux::lb: regfile_mux_out = alu_out;
-        regfilemux::lbu: regfile_mux_out = alu_out;
-        regfilemux::lh: regfile_mux_out = alu_out;
-        regfilemux::lhu: regfile_mux_out = alu_out;
+        regfilemux::pc_plus4: regfilemux_out = alu_out;
+        regfilemux::lb: regfilemux_out = alu_out;
+        regfilemux::lbu: regfilemux_out = alu_out;
+        regfilemux::lh: regfilemux_out = alu_out;
+        regfilemux::lhu: regfilemux_out = alu_out;
     endcase
 end : MUXES
 
