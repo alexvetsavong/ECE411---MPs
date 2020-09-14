@@ -199,7 +199,7 @@ begin : state_actions
         /* write case for each state */
             fetch1: loadMAR(marmux::pc_out);
             fetch2: loadMDR();
-            fetch3: load_ir <= 1'b1;
+            fetch3: load_ir = 1'b1;
             decode: /* no actual code here to be done */;
             br: 
             begin 
@@ -294,100 +294,102 @@ begin : state_actions
                     begin
                         loadMAR(marmux::alu_out);
                         setALU(alumux::rs1_out, alumux::s_imm, 1'b1, alu_add);
-                        load_data_out <= 1'b1;
+                        load_data_out = 1'b1;
                     end
                 endcase
             end
             ld1:loadMDR(); 
             ld2:
             begin 
-                regfilemux_sel <= regfilemux::lw;
-                load_regfile <= 1'b1;
-                load_pc <= 1'b1;
+                loadRegfile(regfilemux::lw);
+                loadPC(pcmux::pc_plus4);
             end
-            st1: mem_write <= 1'b1; 
-            st2: load_pc <= 1'b1;
+            st1: mem_write = 1'b1; 
+            st2: loadPC(pcmux::pc_plus4);
         default: set_defaults();
     endcase
 end
 
-logic [1:0] count;
+logic [1:0] count = 2'b00;
 
 always_ff @(posedge clk)
 begin : decode_delay_counter
-    count <= count + 1;
+    if(count == 2'b11 || rst)
+        count <= 2'b00;
+    else count <= count + 1;
 end
 
 always_comb
 begin : next_state_logic
     /* Next state information and conditions (if any)
      * for transitioning between states */
-    if(rst)
-        next_states <= fetch1;
     case(state)
-        fetch1: next_states <= fetch2; 
+        fetch1: next_states = fetch2; 
         fetch2: 
         begin 
             if (mem_resp) 
-                next_states <= fetch3;
+                next_states = fetch3;
             else 
-                next_states <= fetch2; 
+                next_states = fetch2; 
         end
-        fetch3: next_states <= decode;
+        fetch3: next_states = decode;
         decode: 
         begin
-            if(count == 2'b11) /* delay to give decode state some time */
+            if(count == 2'b10) /* delay to give decode state some time */
                 case(opcode)
                     /* figure out next state based on decoded op */
-                    op_lui: next_states <= s_lui;
-                    op_auipc: next_states <= s_auipc;
-                    op_br: next_states <= br;
-                    op_load, op_store: next_states <= calc_addr;
-                    op_imm: next_states <= s_imm;
+                    op_lui: next_states = s_lui;
+                    op_auipc: next_states = s_auipc;
+                    op_br: next_states = br;
+                    op_load, op_store: next_states = calc_addr;
+                    op_imm: next_states = s_imm;
 
                     /* figure out what state to enter for register-register operations */
-                    op_reg: next_states <= s_reg;
-                    default: next_states <= fetch1;
+                    op_reg: next_states = s_reg;
+                    default: next_states = fetch1;
                     /* checkpoint 2 stuff here */
                     // op_jal: next_states <= ;
                     // op_jalr: next_states <= ;
                     // op_csr: next_states <= ;
                 endcase
-            else next_states <= decode;
+            else next_states = decode;
         end
-        s_imm: next_states <= fetch1;
-        s_reg: next_states <= fetch1; /* probably goes to fetch1 -- double-check */
-        s_lui: next_states <= fetch1;
-        s_auipc: next_states <= fetch1;
-        br: next_states <= fetch1;
+        s_imm: next_states = fetch1;
+        s_reg: next_states = fetch1; /* probably goes to fetch1 -- double-check */
+        s_lui: next_states = fetch1;
+        s_auipc: next_states = fetch1;
+        br: next_states = fetch1;
         calc_addr: 
         case(opcode)
-            op_load: next_states <= ld1;
-            op_store: next_states <= st1;
-            default: next_states <= fetch1;
+            op_load: next_states = ld1;
+            op_store: next_states = st1;
+            default: next_states = fetch1;
         endcase
         ld1: 
         begin 
             if(mem_resp) 
-                next_states <= ld2; 
-            else next_states <= ld1; 
+                next_states = ld2; 
+            else next_states = ld1; 
         end
-        ld2: next_states <= fetch1;
+        ld2: next_states = fetch1;
         st1: 
         begin 
             if(mem_resp) 
-                next_states <= st2; 
-            else next_states <= st1; 
+                next_states = st2; 
+            else next_states = st1; 
         end
-        st2: next_states <= fetch1;
-        default: next_states <= state; // by default, stay the same
+        st2: next_states = fetch1;
+        default: next_states = state; // by default, stay the same
     endcase
 end
 
 always_ff @(posedge clk)
 begin: next_state_assignment
     /* Assignment of next state on clock edge */
-    state <= next_states;
+    if(rst) begin
+        state <= fetch1;
+    end
+    else state <= next_states;
 end
 
 endmodule : control

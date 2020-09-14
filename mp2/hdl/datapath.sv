@@ -245,10 +245,10 @@ always_comb begin : br_en_logic
     case (cmpop)
         beq: br_en = (cmp_mux_out == rs1_out) ? 1'b1 : 1'b0;
         bne: br_en = (cmp_mux_out != rs1_out) ? 1'b1 : 1'b0;
-        blt: br_en = ($signed(cmp_mux_out) < $signed(rs1_out)) ? 1'b1 : 1'b0;
-        bge: br_en = ($signed(cmp_mux_out) >= $signed(rs1_out)) ? 1'b1 : 1'b0;
-        bltu: br_en = (cmp_mux_out < rs1_out) ? 1'b1 : 1'b0;
-        bgeu: br_en = (cmp_mux_out >= rs1_out) ? 1'b1 : 1'b0;
+        blt: br_en = ($signed(rs1_out) < $signed(cmp_mux_out)) ? 1'b1 : 1'b0;
+        bge: br_en = ($signed(rs1_out) >= $signed(cmp_mux_out)) ? 1'b1 : 1'b0;
+        bltu: br_en = (rs1_out < cmp_mux_out) ? 1'b1 : 1'b0;
+        bgeu: br_en = (rs1_out >= cmp_mux_out) ? 1'b1 : 1'b0;
         default: br_en = 1'b0;
     endcase
 end : br_en_logic
