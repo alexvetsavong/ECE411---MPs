@@ -124,15 +124,15 @@ register mem_data_out
 
 /******************************* ALU and CMP *********************************/
 
-rv32i_word alumux1_out, alumux2_out, alu_out;
+logic [31:0] alumux1_out, alumux2_out, alu_out;
 rv32i_word cmp_mux_out;
 
 /* instantiate the ALU and CMP here */
-alu_module ALU(
+alu ALU(
     .aluop(aluop),
-    .in1(alumux1_out),
-    .in2(alumux2_out),
-    .alu_out(alu_out)
+    .a(alumux1_out),
+    .b(alumux2_out),
+    .f(alu_out)
 );
 
 cmp_module CMP(
@@ -175,7 +175,7 @@ always_comb begin : MUXES
 
     unique case(alumux1_sel)
         alumux::rs1_out: alumux1_out = rs1_out;
-        alumux::pc_out: alumux1_out = pcmux_out;
+        alumux::pc_out: alumux1_out = pc_out;
         default: `BAD_MUX_SEL;
     endcase
 
@@ -208,30 +208,6 @@ end : MUXES
 /*****************************************************************************/
 endmodule : datapath
 
-/************************************ ALU ************************************/
-module alu_module(
-    input alu_ops aluop,
-    input rv32i_word in1, in2,
-    output rv32i_word alu_out
-);
-
-always_comb begin : alu_op_logic
-    case (aluop) 
-        alu_add: alu_out = in1 + in2;
-        alu_sll: alu_out = in1 << in2[4:0];
-        alu_sra: alu_out = in1 >>> in2[4:0];
-        alu_sub: alu_out = in1 - in2;
-        alu_xor: alu_out = in1 ^ in2;
-        alu_srl: alu_out = in1 >> in2[4:0];
-        alu_or: alu_out = in1 | in2;
-        alu_and: alu_out = in1 & in2;
-        default: alu_out = in1 + in2;
-    endcase
-end : alu_op_logic
-
-endmodule : alu_module
-/*****************************************************************************/
-
 /************************************ CMP ************************************/
 module cmp_module
 (
@@ -243,12 +219,12 @@ module cmp_module
 
 always_comb begin : br_en_logic
     case (cmpop)
-        beq: br_en = (cmp_mux_out == rs1_out) ? 1'b1 : 1'b0;
-        bne: br_en = (cmp_mux_out != rs1_out) ? 1'b1 : 1'b0;
-        blt: br_en = ($signed(rs1_out) < $signed(cmp_mux_out)) ? 1'b1 : 1'b0;
-        bge: br_en = ($signed(rs1_out) >= $signed(cmp_mux_out)) ? 1'b1 : 1'b0;
-        bltu: br_en = (rs1_out < cmp_mux_out) ? 1'b1 : 1'b0;
-        bgeu: br_en = (rs1_out >= cmp_mux_out) ? 1'b1 : 1'b0;
+        beq: br_en = (rs1_out == cmp_mux_out);
+        bne: br_en = (rs1_out != cmp_mux_out);
+        blt: br_en = ($signed(rs1_out) < $signed(cmp_mux_out));
+        bge: br_en = ($signed(rs1_out) >= $signed(cmp_mux_out));
+        bltu: br_en = (rs1_out < cmp_mux_out);
+        bgeu: br_en = (rs1_out >= cmp_mux_out);
         default: br_en = 1'b0;
     endcase
 end : br_en_logic

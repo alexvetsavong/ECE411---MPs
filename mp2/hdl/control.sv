@@ -341,16 +341,17 @@ begin : next_state_logic
                     op_lui: next_states = s_lui;
                     op_auipc: next_states = s_auipc;
                     op_br: next_states = br;
-                    op_load, op_store: next_states = calc_addr;
+                    op_load: next_states = calc_addr;
+                    op_store: next_states = calc_addr;
                     op_imm: next_states = s_imm;
 
                     /* figure out what state to enter for register-register operations */
                     op_reg: next_states = s_reg;
                     default: next_states = fetch1;
                     /* checkpoint 2 stuff here */
-                    // op_jal: next_states <= ;
-                    // op_jalr: next_states <= ;
-                    // op_csr: next_states <= ;
+                    // op_jal: next_states = ;
+                    // op_jalr: next_states = ;
+                    // op_csr: next_states = ;
                 endcase
             else next_states = decode;
         end
