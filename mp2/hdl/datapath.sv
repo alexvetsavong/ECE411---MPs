@@ -124,53 +124,9 @@ register mem_data_out
 
 /******************************* ALU and CMP *********************************/
 
-/************************************ ALU ************************************/
 rv32i_word alu_out;
-module alu_module(
-    input alu_ops aluop,
-    input rv32i_word in1, in2,
-    output rv32i_word alu_out
-);
-
-always_comb begin : alu_op_logic
-    case (aluop) 
-        alu_add: alu_out = in1 + in2;
-        alu_sll: alu_out = in1 << in2[4:0];
-        alu_sra: alu_out = in1 >>> in2[4:0];
-        alu_sub: alu_out = in1 - in2;
-        alu_xor: alu_out = in1 ^ in2;
-        alu_srl: alu_out = in1 >> in2[4:0];
-        alu_or: alu_out = in1 | in2;
-        alu_and: alu_out = in1 & in2;
-    endcase
-end : alu_op_logic
-
-endmodule
-/*****************************************************************************/
-
-/************************************ CMP ************************************/
 rv32i_word cmp_mux_out;
-module cmp_module
-(
-    input branch_funct3_t cmpop,
-    input rv32i_word rs1_out, // src1
-    input rv32i_word cmp_mux_out, // src2
-    output logic br_en
-);
 
-always_comb begin : br_en_logic
-    case (cmpop)
-        beq: br_en = (cmp_mux_out == rs1_out) ? 1'b1 : 1'b0;
-        bne: br_en = (cmp_mux_out != rs1_out) ? 1'b1 : 1'b0;
-        blt: br_en = ($signed(cmp_mux_out) < $signed(rs1_out)) ? 1'b1 : 1'b0;
-        bge: br_en = ($signed(cmp_mux_out) >= $signed(rs1_out)) ? 1'b1 : 1'b0;
-        bltu: br_en = (cmp_mux_out < rs1_out) ? 1'b1 : 1'b0;
-        bgeu: br_en = (cmp_mux_out >= rs1_out) ? 1'b1 : 1'b0;
-    endcase
-end : br_en_logic
-
-endmodule
-/*****************************************************************************/
 /* instantiate the ALU and CMP here */
 alu_module ALU(
     .aluop(aluop),
@@ -200,12 +156,14 @@ always_comb begin : MUXES
     unique case (pcmux_sel)
         pcmux::pc_plus4: pcmux_out = pc_out + 4;
         pcmux::alu_out: pcmux_out = alu_out;
+        /* checkpoint 2 stuff */
+        pcmux::alu_mod2: pcmux_out = alu_out % 2;
         default: `BAD_MUX_SEL;
     endcase
 
     unique case(marmux_sel)
-        marmux::pc_out: mem_address = pc_out;
-        marmux::alu_out: mem_address = alu_out;
+        marmux::pc_out: marmux_out = pc_out;
+        marmux::alu_out: marmux_out = alu_out;
         default: `BAD_MUX_SEL;
     endcase
 
@@ -227,25 +185,72 @@ always_comb begin : MUXES
         alumux::b_imm: alumux2_out = b_imm;
         alumux::s_imm: alumux2_out = s_imm;
         alumux::rs2_out: alumux2_out = rs2_out;
-        default: `BAD_MUX_SEL;
         /* implement these for checkpoint 2 */
-        // alumux::j_imm:;
+        alumux::j_imm: alumux2_out = j_imm;
+        default: `BAD_MUX_SEL;
     endcase 
 
     unique case(regfilemux_sel) 
-        regfilemux::alu_out:regfile_mux_out = alu_out;
+        regfilemux::alu_out: regfile_mux_out = alu_out;
         regfilemux::br_en: regfile_mux_out = {31'd0, br_en};
         regfilemux::u_imm: regfile_mux_out = u_imm;
         regfilemux::lw: regfile_mux_out = mdrreg_out;
         default: `BAD_MUX_SEL;
         /* implement these for checkpoint 2 */
-        // regfilemux::pc_plus4:;
-        // regfilemux::lb:;
-        // regfilemux::lbu:;
-        // regfilemux::lh:;
-        // regfilemux::lhu:;
+        regfilemux::pc_plus4: regfile_mux_out = alu_out;
+        regfilemux::lb: regfile_mux_out = alu_out;
+        regfilemux::lbu: regfile_mux_out = alu_out;
+        regfilemux::lh: regfile_mux_out = alu_out;
+        regfilemux::lhu: regfile_mux_out = alu_out;
     endcase
+end : MUXES
 
-end
 /*****************************************************************************/
 endmodule : datapath
+
+/************************************ ALU ************************************/
+module alu_module(
+    input alu_ops aluop,
+    input rv32i_word in1, in2,
+    output rv32i_word alu_out
+);
+
+always_comb begin : alu_op_logic
+    case (aluop) 
+        alu_add: alu_out = in1 + in2;
+        alu_sll: alu_out = in1 << in2[4:0];
+        alu_sra: alu_out = in1 >>> in2[4:0];
+        alu_sub: alu_out = in1 - in2;
+        alu_xor: alu_out = in1 ^ in2;
+        alu_srl: alu_out = in1 >> in2[4:0];
+        alu_or: alu_out = in1 | in2;
+        alu_and: alu_out = in1 & in2;
+        default: alu_out = in1 + in2;
+    endcase
+end : alu_op_logic
+
+endmodule : alu_module
+/*****************************************************************************/
+
+/************************************ CMP ************************************/
+module cmp_module
+(
+    input branch_funct3_t cmpop,
+    input rv32i_word rs1_out, // src1
+    input rv32i_word cmp_mux_out, // src2
+    output logic br_en
+);
+
+always_comb begin : br_en_logic
+    case (cmpop)
+        beq: br_en = (cmp_mux_out == rs1_out) ? 1'b1 : 1'b0;
+        bne: br_en = (cmp_mux_out != rs1_out) ? 1'b1 : 1'b0;
+        blt: br_en = ($signed(cmp_mux_out) < $signed(rs1_out)) ? 1'b1 : 1'b0;
+        bge: br_en = ($signed(cmp_mux_out) >= $signed(rs1_out)) ? 1'b1 : 1'b0;
+        bltu: br_en = (cmp_mux_out < rs1_out) ? 1'b1 : 1'b0;
+        bgeu: br_en = (cmp_mux_out >= rs1_out) ? 1'b1 : 1'b0;
+        default: br_en = 1'b0;
+    endcase
+end : br_en_logic
+
+endmodule : cmp_module

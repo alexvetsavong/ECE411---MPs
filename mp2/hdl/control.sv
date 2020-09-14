@@ -127,21 +127,19 @@ function void set_defaults();
     load_mdr = 1'b0;
     load_data_out = 1'b0;
     pcmux_sel = pcmux::pc_plus4;
-    cmpop = funct3;
+    cmpop = branch_funct3;
 
     alumux1_sel = alumux::rs1_out;
     alumux2_sel = alumux::i_imm;
     regfilemux_sel = regfilemux::alu_out;
     marmux_sel = marmux::pc_out;
     cmpmux_sel = cmpmux::rs2_out;
-    aluop = funct3;
+    aluop = alu_ops'(arith_funct3);
 
     mem_read = 1'b0;
     mem_write = 1'b0;
     mem_byte_enable = 4'b1111;
 
-    rs1 = 5'b00000;
-    rs2 = 5'b00000;
 endfunction
 
 /**
