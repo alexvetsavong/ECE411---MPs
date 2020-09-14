@@ -214,12 +214,15 @@ begin : state_actions
                 case(arith_funct3)
                 slt: 
                 begin 
-                    loadRegfile();
-                    loadPC();
+                    loadRegfile(regfilemux::br_en);
+                    loadPC(pcmux::pc_plus4);
+                    setCMP(cmpmux::i_imm, blt);
                 end 
                 sltu: 
                 begin
-                    loadRegfile();
+                    loadRegfile(regfilemux::br_en);
+                    loadPC(pcmux::pc_plus4);
+                    setCMP(cmpmux::i_imm, bltu);
                 end
                 sr: 
                 begin
@@ -235,6 +238,38 @@ begin : state_actions
                     loadRegfile(regfilemux::alu_out);
                     loadPC(pcmux::pc_plus4);
                     setALU(alumux::rs1_out, alumux::i_imm, 1'b1, alu_ops'(funct3));
+                end 
+                endcase
+            end
+            s_reg: 
+            begin 
+                case(arith_funct3)
+                slt: 
+                begin 
+                    loadRegfile(regfilemux::br_en);
+                    loadPC(pcmux::pc_plus4);
+                    setCMP(cmpmux::rs2_out, blt);
+                end 
+                sltu: 
+                begin
+                    loadRegfile(regfilemux::br_en);
+                    loadPC(pcmux::pc_plus4);
+                    setCMP(cmpmux::rs2_out, bltu);
+                end
+                sr: 
+                begin
+                    loadRegfile(regfilemux::alu_out);
+                    loadPC(pcmux::pc_plus4);
+                    case(funct7[5])
+                        1'b0 : setALU(alumux::rs1_out, alumux::rs2_out, 1'b1, alu_srl);
+                        1'b1 : setALU(alumux::rs1_out, alumux::rs2_out, 1'b1, alu_sra);
+                    endcase
+                end
+                default: 
+                begin 
+                    loadRegfile(regfilemux::alu_out);
+                    loadPC(pcmux::pc_plus4);
+                    setALU(alumux::rs1_out, alumux::rs2_out, 1'b1, alu_ops'(funct3));
                 end 
                 endcase
             end
