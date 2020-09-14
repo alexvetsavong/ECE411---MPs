@@ -25,6 +25,20 @@ alumux::alumux2_sel_t alumux2_sel;
 regfilemux::regfilemux_sel_t regfilemux_sel;
 marmux::marmux_sel_t marmux_sel;
 cmpmux::cmpmux_sel_t cmpmux_sel;
+
+alu_ops aluop;
+branch_funct3_t cmpop;
+logic load_ir;
+logic load_mar;
+logic load_mdr;
+logic load_data_out;
+
+rv32i_opcode opcode;
+logic [2:0] funct3;
+logic [6:0] funct7;
+logic br_en;
+logic [4:0] rs1;
+logic [4:0] rs2;
 /*****************************************************************************/
 
 /* Instantiate MP 1 top level blocks here */

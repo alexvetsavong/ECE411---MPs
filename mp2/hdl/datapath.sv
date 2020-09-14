@@ -29,7 +29,7 @@ module datapath
     output rv32i_word mem_address, 
     
     /* datapath ouputs to controller module */
-    output rv32i_word opcode,
+    output rv32i_opcode opcode,
     output logic [2:0] funct3,
     output logic [6:0] funct7,
     output logic br_en,
@@ -135,11 +135,11 @@ module alu_module(
 always_comb begin : alu_op_logic
     case (aluop) 
         alu_add: alu_out = in1 + in2;
-        alu_sll: in1 = in1 << int'(in2[4:0]);
-        alu_sra: in1 = in1 >>> int'(in2[4:0]);
+        alu_sll: alu_out = in1 << in2[4:0];
+        alu_sra: alu_out = in1 >>> in2[4:0];
         alu_sub: alu_out = in1 - in2;
         alu_xor: alu_out = in1 ^ in2;
-        alu_srl: in1 = in1 >> int'(in2[4:0]);
+        alu_srl: alu_out = in1 >> in2[4:0];
         alu_or: alu_out = in1 | in2;
         alu_and: alu_out = in1 & in2;
     endcase

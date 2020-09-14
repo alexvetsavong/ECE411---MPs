@@ -140,8 +140,8 @@ function void set_defaults();
     mem_write = 1'b0;
     mem_byte_enable = 4'b1111;
 
-    rs1 = 5'b0;
-    rs2 = 5'b0;
+    rs1 = 5'b00000;
+    rs2 = 5'b00000;
 endfunction
 
 /**
@@ -207,7 +207,7 @@ begin : state_actions
             begin 
                 setCMP(cmpmux::rs2_out, branch_funct3);
                 setALU(alumux::pc_out, alumux::b_imm, 1'b1, alu_add);
-                loadPC(pcmux_sel_t'(br_en));
+                loadPC(pcmux::pcmux_sel_t'(br_en));
             end 
             s_imm: 
             begin 
