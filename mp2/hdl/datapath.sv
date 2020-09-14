@@ -124,7 +124,7 @@ register mem_data_out
 
 /******************************* ALU and CMP *********************************/
 
-rv32i_word alu_out;
+rv32i_word alumux1_out, alumux2_out, alu_out;
 rv32i_word cmp_mux_out;
 
 /* instantiate the ALU and CMP here */
