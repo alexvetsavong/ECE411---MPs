@@ -91,7 +91,7 @@ task immediate_tests(input int count, input logic verbose = 1'b0);
     @(posedge itf.clk iff itf.rst == 1'b0)
     $display("Starting Immediate Tests");
     repeat (count) begin
-        @(mem_itf.mcb iff itf.mcb.read);
+        @(mem_itf.mcb iff mem_itf.mcb.read);
         mem_itf.mcb.rdata <= generator.immediate();
         if (verbose)
             $display("Testing stimulus: %32h", mem_itf.mcb.rdata);
