@@ -335,7 +335,7 @@ begin : next_state_logic
         fetch3: next_states = decode;
         decode: 
         begin
-            if(count == 3) /* delay to give decode state some time */
+            // if(count == 3) /* delay to give decode state some time */
                 case(opcode)
                     /* figure out next state based on decoded op */
                     op_lui: next_states = s_lui;
@@ -347,13 +347,13 @@ begin : next_state_logic
 
                     /* figure out what state to enter for register-register operations */
                     op_reg: next_states = s_reg;
-                    default: next_states = fetch1;
+                    default: next_states = decode;
                     /* checkpoint 2 stuff here */
                     // op_jal: next_states = ;
                     // op_jalr: next_states = ;
                     // op_csr: next_states = ;
                 endcase
-            else next_states = decode;
+            // else next_states = decode;
         end
         s_imm: next_states = fetch1;
         s_reg: next_states = fetch1;
