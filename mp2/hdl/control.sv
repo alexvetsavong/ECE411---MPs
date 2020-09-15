@@ -310,12 +310,12 @@ begin : state_actions
     endcase
 end
 
-logic [1:0] count = 2'b00;
+logic [2:0] count;
 
 always_ff @(posedge clk)
 begin : decode_delay_counter
-    if(count == 2'b11 || rst)
-        count <= 2'b00;
+    if(count > 3 || rst)
+        count <= 0;
     else count <= count + 1;
 end
 
@@ -335,7 +335,7 @@ begin : next_state_logic
         fetch3: next_states = decode;
         decode: 
         begin
-            if(count == 2'b10) /* delay to give decode state some time */
+            if(count == 3) /* delay to give decode state some time */
                 case(opcode)
                     /* figure out next state based on decoded op */
                     op_lui: next_states = s_lui;
@@ -356,16 +356,18 @@ begin : next_state_logic
             else next_states = decode;
         end
         s_imm: next_states = fetch1;
-        s_reg: next_states = fetch1; /* probably goes to fetch1 -- double-check */
+        s_reg: next_states = fetch1;
         s_lui: next_states = fetch1;
         s_auipc: next_states = fetch1;
         br: next_states = fetch1;
         calc_addr: 
-        case(opcode)
-            op_load: next_states = ld1;
-            op_store: next_states = st1;
-            default: next_states = fetch1;
-        endcase
+        begin
+            case(opcode)
+                op_load: next_states = ld1;
+                op_store: next_states = st1;
+                default: next_states = fetch1;
+            endcase 
+        end
         ld1: 
         begin 
             if(mem_resp) 
