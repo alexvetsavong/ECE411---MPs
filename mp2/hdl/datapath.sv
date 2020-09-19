@@ -195,13 +195,13 @@ always_comb begin : MUXES
         regfilemux::br_en: regfilemux_out = {31'd0, br_en};
         regfilemux::u_imm: regfilemux_out = u_imm;
         regfilemux::lw: regfilemux_out = mdrreg_out;
-        default: `BAD_MUX_SEL;
         /* implement these for checkpoint 2 */
-        regfilemux::pc_plus4: regfilemux_out = alu_out;
-        regfilemux::lb: regfilemux_out = alu_out;
-        regfilemux::lbu: regfilemux_out = alu_out;
-        regfilemux::lh: regfilemux_out = alu_out;
-        regfilemux::lhu: regfilemux_out = alu_out;
+        regfilemux::pc_plus4: regfilemux_out = pc_out + 4;
+        regfilemux::lh: regfilemux_out = 32'($signed(mdrreg_out[15:0]));
+        regfilemux::lhu: regfilemux_out = 32'(mdrreg_out[15:0]);
+        regfilemux::lb: regfilemux_out = 32'($signed(mdrreg_out[7:0]));
+        regfilemux::lbu: regfilemux_out = 32'(mdrreg_out[7:0]);
+        default: `BAD_MUX_SEL;
     endcase
 end : MUXES
 

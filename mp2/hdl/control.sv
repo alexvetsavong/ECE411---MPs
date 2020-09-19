@@ -69,8 +69,8 @@ begin : trap_check
         op_load: begin
             case (load_funct3)
                 lw: rmask = 4'b1111;
-                lh, lhu: rmask = 4'bXXXX /* Modify for MP1 Final */ ;
-                lb, lbu: rmask = 4'bXXXX /* Modify for MP1 Final */ ;
+                lh, lhu: rmask = 4'b0011 /* Modify for MP1 Final */ ;
+                lb, lbu: rmask = 4'b0001 /* Modify for MP1 Final */ ;
                 default: trap = 1;
             endcase
         end
@@ -78,8 +78,8 @@ begin : trap_check
         op_store: begin
             case (store_funct3)
                 sw: wmask = 4'b1111;
-                sh: wmask = 4'bXXXX /* Modify for MP1 Final */ ;
-                sb: wmask = 4'bXXXX /* Modify for MP1 Final */ ;
+                sh: wmask = 4'b0011 /* Modify for MP1 Final */ ;
+                sb: wmask = 4'b0001 /* Modify for MP1 Final */ ;
                 default: trap = 1;
             endcase
         end
@@ -93,13 +93,22 @@ enum int unsigned {
     /* List of states */
     fetch1, fetch2, fetch3,
     decode,
-    br, s_imm, s_reg,
+    br, jmp,
+    s_imm, s_reg,
     s_lui,
     s_auipc,
     calc_addr,
     ld1, ld2,
     st1, st2
 } state, next_states;
+
+/* enum so I don't have to write the bits all the time */
+typedef enum logic [3:0] {
+    no_w = 4'b0000;
+    sw_en  = 4'b1111;
+    sh_en  = 4'b0011;
+    sb_en  = 4'b0001;
+} mem_byte_enable_t;
 
 /************************* Function Definitions *******************************/
 /**
@@ -138,6 +147,8 @@ function void set_defaults();
 
     mem_read = 1'b0;
     mem_write = 1'b0;
+
+    /* TODO: need to change this for the store and load instructions, I think */
     mem_byte_enable = 4'b1111;
 
 endfunction
@@ -166,6 +177,9 @@ function void loadMDR();
     mem_read = 1'b1;
 endfunction
 
+function void setWMask(mem_byte_enable_t val);
+    mem_byte_enable = val;
+endfunction
 /**
  * SystemVerilog allows for default argument values in a way similar to
  *   C++.
@@ -204,9 +218,30 @@ begin : state_actions
             br: 
             begin 
                 setCMP(cmpmux::rs2_out, branch_funct3);
-                setALU(alumux::pc_out, alumux::b_imm, 1'b1, alu_add);
+                setALU(alumux::pc_out, alumux::b_imm);
                 loadPC(pcmux::pcmux_sel_t'(br_en));
-            end 
+            end
+
+            jmp:
+            begin
+                case(opcode)
+                    op_jal: 
+                    begin
+                        loadRegfile(regfilemux::pc_plus4);
+                        /* calculate the jump address*/
+                        setALU(alumux::pc_out, alumux::j_imm);
+                        loadPC(pcmux::alu_out); 
+                    end
+                    op_jalr:
+                    begin 
+                        loadRegfile(regfilemux::pc_plus4);
+                        /* calculate the jump address */
+                        setALU(alumux::rs1, alumux::i_imm);
+                        loadPC(pcmux::alu_out);
+                    end
+                endcase
+            end
+
             s_imm: 
             begin 
                 case(arith_funct3)
@@ -239,6 +274,7 @@ begin : state_actions
                 end 
                 endcase
             end
+
             s_reg: 
             begin 
                 case(arith_funct3)
@@ -268,9 +304,16 @@ begin : state_actions
                     loadRegfile(regfilemux::alu_out);
                     loadPC(pcmux::pc_plus4);
                     setALU(alumux::rs1_out, alumux::rs2_out, 1'b1, alu_ops'(funct3));
+                    if(alu_ops'(funct3) == add) begin
+                        case(funct7[5])
+                        1'b0 : setALU(alumux::rs1_out, alumux::rs2_out, 1'b1, alu_add;
+                        1'b1 : setALU(alumux::rs1_out, alumux::rs2_out, 1'b1, alu_sub;
+                        endcase
+                    end
                 end 
                 endcase
             end
+
             s_lui: 
             begin 
                 loadRegfile(regfilemux::u_imm);
@@ -298,25 +341,30 @@ begin : state_actions
                     end
                 endcase
             end
-            ld1:loadMDR(); 
+            ld1: loadMDR(); 
             ld2:
-            begin 
-                loadRegfile(regfilemux::lw);
+            begin
+                case(store_funct3):
+                    lw: loadRegfile(regfilemux::lw);
+                    lh: loadRegfile(regfilemux::lh);
+                    lhu: loadRegfile(regfilemux::lhu);
+                    lb: loadRegfile(regfilemux::lb);
+                    lbu: loadRegfile(regfilemux::lbu);
+                endcase
                 loadPC(pcmux::pc_plus4);
             end
-            st1: mem_write = 1'b1; 
+            st1: 
+            begin 
+                case (store_funct3) 
+                    sw: mem_byte_enable(sw_en);
+                    sh: mem_byte_enable(sh_en);
+                    sb: mem_byte_enable(sb_en);
+                endcase
+                mem_write = 1'b1;
+            end
             st2: loadPC(pcmux::pc_plus4);
         default: set_defaults();
     endcase
-end
-
-logic [2:0] count;
-
-always_ff @(posedge clk)
-begin : decode_delay_counter
-    if(count > 3 || rst)
-        count <= 0;
-    else count <= count + 1;
 end
 
 always_comb
@@ -349,9 +397,9 @@ begin : next_state_logic
                     op_reg: next_states = s_reg;
                     default: next_states = decode;
                     /* checkpoint 2 stuff here */
-                    // op_jal: next_states = ;
-                    // op_jalr: next_states = ;
-                    // op_csr: next_states = ;
+                    op_jal: next_states = jmp;
+                    op_jalr: next_states = jmp;
+                    op_csr: next_states = /* figure out where to go next */;
                 endcase
             // else next_states = decode;
         end
