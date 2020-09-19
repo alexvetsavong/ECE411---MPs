@@ -157,7 +157,7 @@ always_comb begin : MUXES
         pcmux::pc_plus4: pcmux_out = pc_out + 4;
         pcmux::alu_out: pcmux_out = alu_out;
         /* checkpoint 2 stuff */
-        pcmux::alu_mod2: pcmux_out = alu_out % 2;
+        pcmux::alu_mod2: pcmux_out = alu_out & 32'hfffffffe;
         default: `BAD_MUX_SEL;
     endcase
 
@@ -188,7 +188,7 @@ always_comb begin : MUXES
         /* implement these for checkpoint 2 */
         alumux::j_imm: alumux2_out = j_imm;
         default: `BAD_MUX_SEL;
-    endcase 
+    endcase
 
     unique case(regfilemux_sel) 
         regfilemux::alu_out: regfilemux_out = alu_out;

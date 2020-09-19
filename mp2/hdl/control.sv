@@ -230,14 +230,14 @@ begin : state_actions
                         loadRegfile(regfilemux::pc_plus4);
                         /* calculate the jump address*/
                         setALU(alumux::pc_out, alumux::j_imm);
-                        loadPC(pcmux::alu_out); 
+                        loadPC(pcmux::alu_mod2); 
                     end
                     op_jalr:
                     begin 
                         loadRegfile(regfilemux::pc_plus4);
                         /* calculate the jump address */
                         setALU(alumux::rs1, alumux::i_imm);
-                        loadPC(pcmux::alu_out);
+                        loadPC(pcmux::alu_mod2);
                     end
                 endcase
             end
