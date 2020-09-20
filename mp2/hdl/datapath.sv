@@ -157,7 +157,7 @@ always_comb begin : MUXES
         pcmux::pc_plus4: pcmux_out = pc_out + 4;
         pcmux::alu_out: pcmux_out = alu_out;
         /* checkpoint 2 stuff */
-        pcmux::alu_mod2: pcmux_out = alu_out & 32'hfffffffe;
+        pcmux::alu_mod2: pcmux_out = alu_out & 32'hfffffffc;
         default: `BAD_MUX_SEL;
     endcase
 

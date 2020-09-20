@@ -341,12 +341,13 @@ begin : state_actions
                     end
                 endcase
             end
-            ld1: loadMDR(); 
+            ld1: loadMDR();
             ld2:
             begin
-                case(store_funct3)
+                case(load_funct3)
                     lw: loadRegfile(regfilemux::lw);
                     lh: loadRegfile(regfilemux::lh);
+                    lhu: loadRegfile(regfilemux::lhu);
                     lb: loadRegfile(regfilemux::lb);
                     lbu: loadRegfile(regfilemux::lbu);
                 endcase
@@ -354,7 +355,7 @@ begin : state_actions
             end
             st1: 
             begin 
-                case (store_funct3) 
+                case(store_funct3) 
                     sw: setWMask(sw_en);
                     sh: setWMask(sh_en);
                     sb: setWMask(sb_en);
@@ -382,31 +383,33 @@ begin : next_state_logic
         fetch3: next_states = decode;
         decode: 
         begin
-            // if(count == 3) /* delay to give decode state some time */
-                case(opcode)
-                    /* figure out next state based on decoded op */
-                    op_lui: next_states = s_lui;
-                    op_auipc: next_states = s_auipc;
-                    op_br: next_states = br;
-                    op_load: next_states = calc_addr;
-                    op_store: next_states = calc_addr;
-                    op_imm: next_states = s_imm;
+            case(opcode)
+                /* figure out next state based on decoded op */
+                op_lui: next_states = s_lui;
+                op_auipc: next_states = s_auipc;
+                op_br: next_states = br;
+                op_load: next_states = calc_addr;
+                op_store: next_states = calc_addr;
+                op_imm: next_states = s_imm;
 
-                    /* figure out what state to enter for register-register operations */
-                    op_reg: next_states = s_reg;
-                    default: next_states = decode;
-                    /* checkpoint 2 stuff here */
-                    op_jal: next_states = jmp;
-                    op_jalr: next_states = jmp;
-                    op_csr:;
-                endcase
-            // else next_states = decode;
+                /* figure out what state to enter for register-register operations */
+                op_reg: next_states = s_reg;
+                /* checkpoint 2 stuff here */
+                op_jal: next_states = jmp;
+                op_jalr: next_states = jmp;
+                op_csr: next_states = decode;
+                
+                default: next_states = decode;
+            endcase
         end
         s_imm: next_states = fetch1;
         s_reg: next_states = fetch1;
         s_lui: next_states = fetch1;
         s_auipc: next_states = fetch1;
         br: next_states = fetch1;
+
+        jmp: next_states = fetch1;
+
         calc_addr: 
         begin
             case(opcode)
