@@ -45,6 +45,9 @@ rv32i_word mdrreg_out;
 rv32i_word mem_addr_out;
 assign mask_shift = mem_addr_out[1:0];
 
+store_funct3_t store_funct3;
+assign store_funct3 = store_funct3_t'(funct3);
+
 /***************************** Registers *************************************/
 // Keep Instruction register named `IR` for RVFI Monitor
 rv32i_word i_imm, s_imm, b_imm, u_imm, j_imm;
@@ -113,17 +116,27 @@ regfile regfile(
 );
 
 /* connect mem_data_out to rs2_out */
+rv32i_word mem_wdata_out;
 register mem_data_out
 (
     .clk (clk),
     .rst (rst),
     .load (load_data_out),
     .in (rs2_out),
-    .out (mem_wdata)
+    .out (mem_wdata_out)
 );
 
-
 /*****************************************************************************/
+always_comb begin
+    if(opcode == op_store) begin
+        case(store_funct3)
+            sw: mem_wdata = mem_wdata_out;
+            sh, sb: mem_wdata = mem_wdata_out << (mask_shift * 8);
+            default: mem_wdata = mem_wdata_out;
+        endcase
+    end
+end
+
 
 /******************************* ALU and CMP *********************************/
 
