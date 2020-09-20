@@ -29,6 +29,7 @@ module datapath
     output rv32i_word mem_address, 
     
     /* datapath ouputs to controller module */
+    output logic [1:0] mask_shift,
     output rv32i_opcode opcode,
     output logic [2:0] funct3,
     output logic [6:0] funct7,
@@ -41,7 +42,8 @@ module datapath
 rv32i_word pcmux_out;
 rv32i_word mdrreg_out;
 /*****************************************************************************/
-
+rv32i_word mem_addr_out;
+assign mask_shift = mem_addr_out[1:0];
 
 /***************************** Registers *************************************/
 // Keep Instruction register named `IR` for RVFI Monitor
@@ -75,12 +77,13 @@ register MDR(
 );
 
 rv32i_word marmux_out;
+assign mem_address = mem_addr_out & 32'hfffffffc;
 register MAR(
     .clk  (clk),
     .rst (rst),
     .load (load_mar),
     .in   (marmux_out),
-    .out  (mem_address)
+    .out  (mem_addr_out)
 );
 
 // pc register instantiation
@@ -197,10 +200,30 @@ always_comb begin : MUXES
         regfilemux::lw: regfilemux_out = mdrreg_out;
         /* implement these for checkpoint 2 */
         regfilemux::pc_plus4: regfilemux_out = pc_out + 4;
-        regfilemux::lh: regfilemux_out = 32'($signed(mdrreg_out[15:0]));
-        regfilemux::lhu: regfilemux_out = 32'(mdrreg_out[15:0]);
-        regfilemux::lb: regfilemux_out = 32'($signed(mdrreg_out[7:0]));
-        regfilemux::lbu: regfilemux_out = 32'(mdrreg_out[7:0]);
+        regfilemux::lh: 
+            begin case(mask_shift)
+                2'b00: regfilemux_out = 32'($signed(mdrreg_out[15:0]));
+                2'b10: regfilemux_out = 32'($signed(mdrreg_out[31:16]));
+            endcase end 
+        regfilemux::lhu: 
+            begin case(mask_shift)
+                2'b00: regfilemux_out = 32'(mdrreg_out[15:0]);
+                2'b10: regfilemux_out = 32'(mdrreg_out[31:16]);
+            endcase end 
+        regfilemux::lb: 
+            begin case(mask_shift)
+                2'b00: regfilemux_out = 32'($signed(mdrreg_out[7:0]));
+                2'b01: regfilemux_out = 32'($signed(mdrreg_out[15:8]));
+                2'b10: regfilemux_out = 32'($signed(mdrreg_out[23:16]));
+                2'b11: regfilemux_out = 32'($signed(mdrreg_out[31:24]));
+            endcase end
+        regfilemux::lbu:             
+            begin case(mask_shift)
+                2'b00: regfilemux_out = 32'(mdrreg_out[7:0]);
+                2'b01: regfilemux_out = 32'(mdrreg_out[15:8]);
+                2'b10: regfilemux_out = 32'(mdrreg_out[23:16]);
+                2'b11: regfilemux_out = 32'(mdrreg_out[31:24]);
+            endcase end
         default: `BAD_MUX_SEL;
     endcase
 end : MUXES

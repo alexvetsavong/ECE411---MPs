@@ -18,6 +18,7 @@ logic load_pc;
 logic load_regfile;
 /*****************************************************************************/
 
+
 /**************************** Control Signals ********************************/
 pcmux::pcmux_sel_t pcmux_sel;
 alumux::alumux1_sel_t alumux1_sel;
@@ -33,6 +34,7 @@ logic load_mar;
 logic load_mdr;
 logic load_data_out;
 
+logic [1:0] mask_shift;
 rv32i_opcode opcode;
 logic [2:0] funct3;
 logic [6:0] funct7;

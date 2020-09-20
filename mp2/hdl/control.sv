@@ -25,6 +25,10 @@ module control
     output cmpmux::cmpmux_sel_t cmpmux_sel,
     output alu_ops aluop,
     output branch_funct3_t cmpop,
+
+    /* we're going to use this to figure out r/wmask */
+    input logic [1:0] mask_shift,
+
     output logic load_pc,
     output logic load_ir,
     output logic load_regfile,
@@ -69,8 +73,8 @@ begin : trap_check
         op_load: begin
             case (load_funct3)
                 lw: rmask = 4'b1111;
-                lh, lhu: rmask = 4'b0011 /* Modify for MP1 Final */ ;
-                lb, lbu: rmask = 4'b0001 /* Modify for MP1 Final */ ;
+                lh, lhu: rmask = 4'b0011 << (mask_shift) /* Modify for MP1 Final */ ;
+                lb, lbu: rmask = 4'b0001 << (mask_shift) /* Modify for MP1 Final */ ;
                 default: trap = 1;
             endcase
         end
@@ -78,8 +82,8 @@ begin : trap_check
         op_store: begin
             case (store_funct3)
                 sw: wmask = 4'b1111;
-                sh: wmask = 4'b0011 /* Modify for MP1 Final */ ;
-                sb: wmask = 4'b0001 /* Modify for MP1 Final */ ;
+                sh: wmask = 4'b0011 << (mask_shift) /* Modify for MP1 Final */ ;
+                sb: wmask = 4'b0001 << (mask_shift) /* Modify for MP1 Final */ ;
                 default: trap = 1;
             endcase
         end
@@ -101,14 +105,6 @@ enum int unsigned {
     ld1, ld2,
     st1, st2
 } state, next_states;
-
-/* enum so I don't have to write the bits all the time */
-typedef enum logic [3:0] {
-    no_w = 4'b0000,
-    sw_en  = 4'b1111,
-    sh_en  = 4'b0011,
-    sb_en  = 4'b0001
-} mem_byte_enable_t;
 
 /************************* Function Definitions *******************************/
 /**
@@ -177,9 +173,6 @@ function void loadMDR();
     mem_read = 1'b1;
 endfunction
 
-function void setWMask(mem_byte_enable_t val);
-    mem_byte_enable = val;
-endfunction
 /**
  * SystemVerilog allows for default argument values in a way similar to
  *   C++.
@@ -216,7 +209,7 @@ begin : state_actions
             fetch3: load_ir = 1'b1;
             decode: /* no actual code here to be done */;
             br: 
-            begin 
+            begin
                 setCMP(cmpmux::rs2_out, branch_funct3);
                 setALU(alumux::pc_out, alumux::b_imm);
                 loadPC(pcmux::pcmux_sel_t'(br_en));
@@ -345,6 +338,7 @@ begin : state_actions
             ld2:
             begin
                 case(load_funct3)
+                /* TODO: test loading for aligned values */
                     lw: loadRegfile(regfilemux::lw);
                     lh: loadRegfile(regfilemux::lh);
                     lhu: loadRegfile(regfilemux::lhu);
@@ -356,9 +350,10 @@ begin : state_actions
             st1: 
             begin 
                 case(store_funct3) 
-                    sw: setWMask(sw_en);
-                    sh: setWMask(sh_en);
-                    sb: setWMask(sb_en);
+                /* TODO: debug the aligned stores to memory */
+                    sb: mem_byte_enable = 4'b0001 << mask_shift;
+                    sh: mem_byte_enable = 4'b0011 << mask_shift;
+                    sw: mem_byte_enable = 4'b1111;
                 endcase
                 mem_write = 1'b1;
             end
