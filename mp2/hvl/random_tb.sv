@@ -40,7 +40,6 @@ class RandomInst;
             arith3_range.push_back(af3);
             af3 = af3.next;
         end while (af3 != af3.last);
-
     endfunction
 
     function rv32i_word immediate(
@@ -83,6 +82,56 @@ class RandomInst;
         return word.rvword;
     endfunction
 
+    function rv32i_word register(
+        const ref rv32i_reg rd_range[$] = reg_range,
+        const ref arith_funct3_t funct3_range[$] = arith3_range,
+        const ref rv32i_reg rs1_range[$] = reg_range,
+        const ref rv32i_reg rs2_range[$] = reg_range
+    );
+        union {
+        rv32i_word rvword;
+        struct packed {
+            logic [6:0] funct7;
+            rv32i_reg rs2;
+            rv32i_reg rs1;
+            logic [2:0] funct3;
+            logic [4:0] rd;
+            rv32i_opcode opcode;
+            } i_word;
+        } word;
+
+        word.rvword = '0;
+        word.i_word.opcode = op_reg;
+
+        // Set rd register
+        do begin
+            word.i_word.rd = $urandom();
+        end while (!(word.i_word.rd inside {rd_range}));
+
+        // set funct3
+        do begin
+            word.i_word.funct3 = $urandom();
+        end while (!(word.i_word.funct3 inside {funct3_range}));
+
+        // set funct7
+        case(arith_funct3_t'(word.i_word.funct3))
+            add, sr: word.i_word.funct7[5] = $urandom_range(0,1);
+            default: word.i_word.funct7[5] = 1'b0;
+        endcase
+
+        // set rs1
+        do begin
+            word.i_word.rs1 = $urandom();
+        end while (!(word.i_word.rs1 inside {rs1_range}));
+
+        // set rs2
+        do begin
+            word.i_word.rs2 = $urandom();
+        end while (!(word.i_word.rs2 inside {rs2_range}));
+
+        return word.rvword;
+    endfunction
+
 endclass
 
 RandomInst generator = new();
@@ -101,8 +150,24 @@ task immediate_tests(input int count, input logic verbose = 1'b0);
     $display("Finishing Immediate Tests");
 endtask
 
+task register_tests(input int count, input logic verbose = 1'b0);
+    @(posedge itf.clk iff itf.rst == 1'b0)
+    $display("Starting Register Tests");
+    repeat (count) begin
+        @(mem_itf.mcb iff mem_itf.mcb.read);
+        mem_itf.mcb.rdata <= generator.register();
+        if (verbose)
+            $display("Testing stimulus: %32h", mem_itf.mcb.rdata);
+        mem_itf.mcb.resp <= 1;
+        @(mem_itf.mcb) mem_itf.mcb.resp <= 1'b0;
+    end
+    $display("Finishing Register Tests");
+endtask
+
+
 initial begin
-    immediate_tests(100, 1'b1);
+    immediate_tests(100, 1'b0);
+    register_tests(100, 1'b1);
     $finish;
 end
 
