@@ -144,7 +144,6 @@ function void set_defaults();
     mem_read = 1'b0;
     mem_write = 1'b0;
 
-    /* TODO: need to change this for the store and load instructions, I think */
     mem_byte_enable = 4'b1111;
 
 endfunction
@@ -338,7 +337,6 @@ begin : state_actions
             ld2:
             begin
                 case(load_funct3)
-                /* TODO: test loading for aligned values */
                     lw: loadRegfile(regfilemux::lw);
                     lh: loadRegfile(regfilemux::lh);
                     lhu: loadRegfile(regfilemux::lhu);
@@ -350,7 +348,7 @@ begin : state_actions
             st1: 
             begin 
                 case(store_funct3) 
-                /* TODO: debug the aligned stores to memory */
+                /* TODO: check for longer testing over time */
                     sb: mem_byte_enable = 4'b0001 << mask_shift;
                     sh: mem_byte_enable = 4'b0011 << mask_shift;
                     sw: mem_byte_enable = 4'b1111;
