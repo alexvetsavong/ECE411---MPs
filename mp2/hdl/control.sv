@@ -104,10 +104,10 @@ enum int unsigned {
 
 /* enum so I don't have to write the bits all the time */
 typedef enum logic [3:0] {
-    no_w = 4'b0000;
-    sw_en  = 4'b1111;
-    sh_en  = 4'b0011;
-    sb_en  = 4'b0001;
+    no_w = 4'b0000,
+    sw_en  = 4'b1111,
+    sh_en  = 4'b0011,
+    sb_en  = 4'b0001
 } mem_byte_enable_t;
 
 /************************* Function Definitions *******************************/
@@ -236,7 +236,7 @@ begin : state_actions
                     begin 
                         loadRegfile(regfilemux::pc_plus4);
                         /* calculate the jump address */
-                        setALU(alumux::rs1, alumux::i_imm);
+                        setALU(alumux::rs1_out, alumux::i_imm);
                         loadPC(pcmux::alu_mod2);
                     end
                 endcase
@@ -306,8 +306,8 @@ begin : state_actions
                     setALU(alumux::rs1_out, alumux::rs2_out, 1'b1, alu_ops'(funct3));
                     if(alu_ops'(funct3) == add) begin
                         case(funct7[5])
-                        1'b0 : setALU(alumux::rs1_out, alumux::rs2_out, 1'b1, alu_add;
-                        1'b1 : setALU(alumux::rs1_out, alumux::rs2_out, 1'b1, alu_sub;
+                        1'b0 : setALU(alumux::rs1_out, alumux::rs2_out, 1'b1, alu_add);
+                        1'b1 : setALU(alumux::rs1_out, alumux::rs2_out, 1'b1, alu_sub);
                         endcase
                     end
                 end 
@@ -344,10 +344,9 @@ begin : state_actions
             ld1: loadMDR(); 
             ld2:
             begin
-                case(store_funct3):
+                case(store_funct3)
                     lw: loadRegfile(regfilemux::lw);
                     lh: loadRegfile(regfilemux::lh);
-                    lhu: loadRegfile(regfilemux::lhu);
                     lb: loadRegfile(regfilemux::lb);
                     lbu: loadRegfile(regfilemux::lbu);
                 endcase
@@ -356,9 +355,9 @@ begin : state_actions
             st1: 
             begin 
                 case (store_funct3) 
-                    sw: mem_byte_enable(sw_en);
-                    sh: mem_byte_enable(sh_en);
-                    sb: mem_byte_enable(sb_en);
+                    sw: setWMask(sw_en);
+                    sh: setWMask(sh_en);
+                    sb: setWMask(sb_en);
                 endcase
                 mem_write = 1'b1;
             end
@@ -399,7 +398,7 @@ begin : next_state_logic
                     /* checkpoint 2 stuff here */
                     op_jal: next_states = jmp;
                     op_jalr: next_states = jmp;
-                    op_csr: next_states = /* figure out where to go next */;
+                    op_csr:;
                 endcase
             // else next_states = decode;
         end
