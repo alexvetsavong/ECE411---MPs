@@ -135,6 +135,7 @@ always_comb begin
             default: mem_wdata = mem_wdata_out;
         endcase
     end
+    else mem_wdata = mem_wdata_out;
 end
 
 
@@ -217,11 +218,13 @@ always_comb begin : MUXES
             begin case(mask_shift)
                 2'b00: regfilemux_out = 32'($signed(mdrreg_out[15:0]));
                 2'b10: regfilemux_out = 32'($signed(mdrreg_out[31:16]));
+                default: regfilemux_out = mdrreg_out;
             endcase end 
         regfilemux::lhu: 
             begin case(mask_shift)
                 2'b00: regfilemux_out = 32'(mdrreg_out[15:0]);
                 2'b10: regfilemux_out = 32'(mdrreg_out[31:16]);
+                default: regfilemux_out = mdrreg_out;
             endcase end 
         regfilemux::lb: 
             begin case(mask_shift)
