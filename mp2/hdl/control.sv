@@ -210,8 +210,8 @@ begin : state_actions
             br: 
             begin
                 setCMP(cmpmux::rs2_out, branch_funct3);
-                setALU(alumux::pc_out, alumux::b_imm);
-                loadPC(pcmux::pcmux_sel_t'(br_en));
+                setALU(alumux::pc_out, alumux::b_imm, 1'b1, alu_add);
+                loadPC(pcmux::pcmux_sel_t'($unsigned(br_en)));
             end
 
             jmp:
@@ -221,14 +221,14 @@ begin : state_actions
                     begin
                         loadRegfile(regfilemux::pc_plus4);
                         /* calculate the jump address*/
-                        setALU(alumux::pc_out, alumux::j_imm);
+                        setALU(alumux::pc_out, alumux::j_imm, 1'b1, alu_add);
                         loadPC(pcmux::alu_mod2); 
                     end
                     op_jalr:
                     begin 
                         loadRegfile(regfilemux::pc_plus4);
                         /* calculate the jump address */
-                        setALU(alumux::rs1_out, alumux::i_imm);
+                        setALU(alumux::rs1_out, alumux::i_imm, 1'b1, alu_add);
                         loadPC(pcmux::alu_mod2);
                     end
                 endcase
