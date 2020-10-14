@@ -35,6 +35,7 @@ module cla_datapath(
     input int it,
     input logic resp_o,
     input resp_i,
+    input write_o,
 
     // Port to LLC (Lowest Level Cache)
     input logic [255:0] line_i,
@@ -54,8 +55,10 @@ always_comb begin
     address_o = address_i;
 
     if (resp_i) l_buffer[64*it +: 64] = burst_i;
+    b_buffer = line_i[64*it +: 64];
 
     if (resp_o) line_o = l_buffer;
+    if (write_o) burst_o = b_buffer;
 end
 
 endmodule : cla_datapath
@@ -101,6 +104,10 @@ always_comb begin
                 next_state = ld;
                 count_next = 0; 
             end
+            if (write_i) begin 
+                next_state = st;
+                count_next = 0;
+            end
         end
 
         ld: 
@@ -110,6 +117,15 @@ always_comb begin
             
             if (count_reg == 3) begin count_next = 4; next_state = finish; end
             else next_state = ld; 
+        end
+
+        st: 
+        begin 
+            if (resp_i) count_next = count_reg + 1;
+            else count_next = 0;
+            
+            if (count_reg == 3) begin count_next = 4; next_state = finish; end
+            else next_state = st;
         end
 
         finish: begin count_next = 0; next_state = idle; end
@@ -123,6 +139,7 @@ always_comb begin
         idle: set_defaults();
 
         ld: read_o = 1;
+        st: write_o = 1;
 
         finish: begin read_o = 0; resp_o = 1; end
     endcase
