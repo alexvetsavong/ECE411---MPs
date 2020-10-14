@@ -17,33 +17,36 @@ module mp3
 /* hierarchy: cpu <-> bus adaptor <-> cache <-> cacheline_adaptor <-> memory */
 
 // wires to connect cpu -> bus
-logic [31:0] mem_rdata, mem_wdata, address;
+logic [31:0] mem_rdata, mem_wdata, mem_address;
 logic [3:0] mem_byte_enable;
 
-// bus -> cache ; this extends everything from 8-bytes to 32-bytes
-logic [255:0] mem_rdata256, mem_wdata256, mem_byte_enable256;
+// connect the cache to the cacheline
+logic [255:0] pmem_wdata_cache, pmem_rdata_cache; 
 
-// cpu -> cacheline adaptor
+// cpu -> cache -> cacheline adaptor
 logic mem_resp, mem_read, mem_write;
+logic pmem_read_cache, pmem_write_cache;
 
 cpu cpu(.*);
 
-bus_adapter bus(.*);
-
 // TODO: implement the cache design from CP1 ; Keep cache named `cache` for RVFI Monitor
-cache cache(.*);
+cache cache(
+    .*, 
+    .pmem_read(pmem_read_cache), .pmem_write(pmem_write_cache),
+    .pmem_resp(pmem_resp_cache)
+);
 
 // From MP1
 cacheline_adaptor cacheline_adaptor
 (   
     .clk(clk), .reset_n(~rst),
     
-    // TODO: ports to cache ; do this after implementing cache
-    .line_i(), .line_o(),
+    // TODO: ports to cache ; check this after implementing cache
+    .line_i(pmem_wdata_cache), .line_o(pmem_rdata_cache),
 
     // ports to cpu
-    .address_i(address), .resp_o(mem_resp),
-    .read_i(mem_read), .write_i(mem_write),
+    .address_i(mem_address), .resp_o(pmem_resp_cache),
+    .read_i(pmem_read_cache), .write_i(pmem_write_cache),
 
     // ports to memory
     .burst_i(pmem_rdata), .burst_o(pmem_wdata), 
