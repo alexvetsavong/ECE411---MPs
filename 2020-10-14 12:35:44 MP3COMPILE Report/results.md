@@ -1,0 +1,1192 @@
+# AG Report Generated 2020-10-14 12:35
+This is a report about mp3compile generated for avetsa2 at 2020-10-14 12:35. The autograder used commit ``50047800323d`` as a starting point. If you have any questions about this report, please contact the TAs on Piazza.
+### Quick Results:
+ - Compilation: NO
+### Compilation ![Failure][failure]
+You did not succesfully compile. Your report is below.
+<details>
+<summary>Compilation Report</summary>
+
+```
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
+    Info: Copyright (C) 2018  Intel Corporation. All rights reserved.
+    Info: Your use of Intel Corporation's design tools, logic functions 
+    Info: and other software and tools, and its AMPP partner logic 
+    Info: functions, and any output files from any of the foregoing 
+    Info: (including device programming or simulation files), and any 
+    Info: associated documentation or information are expressly subject 
+    Info: to the terms and conditions of the Intel Program License 
+    Info: Subscription Agreement, the Intel Quartus Prime License Agreement,
+    Info: the Intel FPGA IP License Agreement, or other applicable license
+    Info: agreement, including, without limitation, that your use is for
+    Info: the sole purpose of programming logic devices manufactured by
+    Info: Intel and sold by Intel or its authorized distributors.  Please
+    Info: refer to the applicable agreement for further details.
+    Info: Processing started: Wed Oct 14 17:35:04 2020
+Info: Command: quartus_map mp3 -c mp3
+Info (20029): Only one processor detected - disabling parallel compilation
+Info (12021): Found 1 design units, including 1 entities, in source file hdl/cache/array.sv
+    Info (12023): Found entity 1: array File: /job/student/hdl/cache/array.sv Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file hdl/cache/cache_control.sv
+    Info (12023): Found entity 1: cache_control File: /job/student/hdl/cache/cache_control.sv Line: 4
+Info (12021): Found 1 design units, including 1 entities, in source file hdl/cache/cacheline_adaptor.sv
+    Info (12023): Found entity 1: cacheline_adaptor File: /job/student/hdl/cache/cacheline_adaptor.sv Line: 4
+Info (12021): Found 1 design units, including 1 entities, in source file hdl/cache/data_array.sv
+    Info (12023): Found entity 1: data_array File: /job/student/hdl/cache/data_array.sv Line: 5
+Info (12021): Found 1 design units, including 1 entities, in source file hdl/cache/cache.sv
+    Info (12023): Found entity 1: cache File: /job/student/hdl/cache/cache.sv Line: 4
+Info (12021): Found 2 design units, including 2 entities, in source file hdl/cache/cache_datapath.sv
+    Info (12023): Found entity 1: cache_datapath File: /job/student/hdl/cache/cache_datapath.sv Line: 5
+    Info (12023): Found entity 2: comparator File: /job/student/hdl/cache/cache_datapath.sv Line: 196
+Info (12021): Found 1 design units, including 1 entities, in source file hdl/cache/bus_adapter.sv
+    Info (12023): Found entity 1: bus_adapter File: /job/student/hdl/cache/bus_adapter.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file hdl/cpu/control.sv
+    Info (12023): Found entity 1: control File: /job/student/hdl/cpu/control.sv Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file hdl/cpu/cpu.sv
+    Info (12023): Found entity 1: cpu File: /job/student/hdl/cpu/cpu.sv Line: 3
+Info (12021): Found 2 design units, including 2 entities, in source file hdl/cpu/datapath.sv
+    Info (12023): Found entity 1: datapath File: /job/student/hdl/cpu/datapath.sv Line: 5
+    Info (12023): Found entity 2: cmp_module File: /job/student/hdl/cpu/datapath.sv Line: 251
+Info (12021): Found 1 design units, including 1 entities, in source file hdl/cpu/alu.sv
+    Info (12023): Found entity 1: alu File: /job/student/hdl/cpu/alu.sv Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file hdl/cpu/ir.sv
+    Info (12023): Found entity 1: ir File: /job/student/hdl/cpu/ir.sv Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file hdl/cpu/pc_reg.sv
+    Info (12023): Found entity 1: pc_register File: /job/student/hdl/cpu/pc_reg.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file hdl/cpu/regfile.sv
+    Info (12023): Found entity 1: regfile File: /job/student/hdl/cpu/regfile.sv Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file hdl/cpu/register.sv
+    Info (12023): Found entity 1: register File: /job/student/hdl/cpu/register.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file hdl/mp3.sv
+    Info (12023): Found entity 1: mp3 File: /job/student/hdl/mp3.sv Line: 3
+Info (12021): Found 5 design units, including 0 entities, in source file hdl/rv32i_mux_types.sv
+    Info (12022): Found design unit 1: pcmux (SystemVerilog) File: /job/student/hdl/rv32i_mux_types.sv Line: 4
+    Info (12022): Found design unit 2: marmux (SystemVerilog) File: /job/student/hdl/rv32i_mux_types.sv Line: 12
+    Info (12022): Found design unit 3: cmpmux (SystemVerilog) File: /job/student/hdl/rv32i_mux_types.sv Line: 19
+    Info (12022): Found design unit 4: alumux (SystemVerilog) File: /job/student/hdl/rv32i_mux_types.sv Line: 26
+    Info (12022): Found design unit 5: regfilemux (SystemVerilog) File: /job/student/hdl/rv32i_mux_types.sv Line: 42
+Info (12021): Found 1 design units, including 0 entities, in source file hdl/rv32i_types.sv
+    Info (12022): Found design unit 1: rv32i_types (SystemVerilog) File: /job/student/hdl/rv32i_types.sv Line: 5
+Warning (10236): Verilog HDL Implicit Net warning at cacheline_adaptor.sv(43): created implicit net for "rst" File: /job/student/hdl/cache/cacheline_adaptor.sv Line: 43
+Warning (10236): Verilog HDL Implicit Net warning at mp3.sv(36): created implicit net for "pmem_resp_cache" File: /job/student/hdl/mp3.sv Line: 36
+Info (12127): Elaborating entity "mp3" for the top level hierarchy
+Info (12128): Elaborating entity "cpu" for hierarchy "cpu:cpu" File: /job/student/hdl/mp3.sv Line: 30
+Info (12128): Elaborating entity "control" for hierarchy "cpu:cpu|control:control" File: /job/student/hdl/cpu/cpu.sv Line: 49
+Warning (10036): Verilog HDL or VHDL warning at control.sv(41): object "trap" assigned a value but never read File: /job/student/hdl/cpu/control.sv Line: 41
+Warning (10036): Verilog HDL or VHDL warning at control.sv(42): object "rs1_addr" assigned a value but never read File: /job/student/hdl/cpu/control.sv Line: 42
+Warning (10036): Verilog HDL or VHDL warning at control.sv(42): object "rs2_addr" assigned a value but never read File: /job/student/hdl/cpu/control.sv Line: 42
+Warning (10036): Verilog HDL or VHDL warning at control.sv(43): object "rmask" assigned a value but never read File: /job/student/hdl/cpu/control.sv Line: 43
+Warning (10036): Verilog HDL or VHDL warning at control.sv(43): object "wmask" assigned a value but never read File: /job/student/hdl/cpu/control.sv Line: 43
+Warning (10270): Verilog HDL Case Statement warning at control.sv(219): incomplete case statement has no default case item File: /job/student/hdl/cpu/control.sv Line: 219
+Warning (10270): Verilog HDL Case Statement warning at control.sv(322): incomplete case statement has no default case item File: /job/student/hdl/cpu/control.sv Line: 322
+Info (12128): Elaborating entity "datapath" for hierarchy "cpu:cpu|datapath:datapath" File: /job/student/hdl/cpu/cpu.sv Line: 52
+Info (12128): Elaborating entity "ir" for hierarchy "cpu:cpu|datapath:datapath|ir:IR" File: /job/student/hdl/cpu/datapath.sv Line: 71
+Info (12128): Elaborating entity "register" for hierarchy "cpu:cpu|datapath:datapath|register:MDR" File: /job/student/hdl/cpu/datapath.sv Line: 80
+Info (12128): Elaborating entity "pc_register" for hierarchy "cpu:cpu|datapath:datapath|pc_register:pc_reg" File: /job/student/hdl/cpu/datapath.sv Line: 100
+Info (12128): Elaborating entity "regfile" for hierarchy "cpu:cpu|datapath:datapath|regfile:regfile" File: /job/student/hdl/cpu/datapath.sv Line: 116
+Info (12128): Elaborating entity "alu" for hierarchy "cpu:cpu|datapath:datapath|alu:ALU" File: /job/student/hdl/cpu/datapath.sv Line: 153
+Info (12128): Elaborating entity "cmp_module" for hierarchy "cpu:cpu|datapath:datapath|cmp_module:CMP" File: /job/student/hdl/cpu/datapath.sv Line: 160
+Info (12128): Elaborating entity "cache" for hierarchy "cache:cache" File: /job/student/hdl/mp3.sv Line: 37
+Info (12128): Elaborating entity "cache_control" for hierarchy "cache:cache|cache_control:control" File: /job/student/hdl/cache/cache.sv Line: 46
+Info (12128): Elaborating entity "cache_datapath" for hierarchy "cache:cache|cache_datapath:datapath" File: /job/student/hdl/cache/cache.sv Line: 51
+Warning (10858): Verilog HDL warning at cache_datapath.sv(84): object dataout_mux_sel used but never assigned File: /job/student/hdl/cache/cache_datapath.sv Line: 84
+Warning (10030): Net "tag_in" at cache_datapath.sv(55) has no driver or initial value, using a default initial value '0' File: /job/student/hdl/cache/cache_datapath.sv Line: 55
+Warning (10030): Net "dataout_mux_sel" at cache_datapath.sv(84) has no driver or initial value, using a default initial value '0' File: /job/student/hdl/cache/cache_datapath.sv Line: 84
+Info (12128): Elaborating entity "comparator" for hierarchy "cache:cache|cache_datapath:datapath|comparator:tag1_check" File: /job/student/hdl/cache/cache_datapath.sv Line: 95
+Warning (10230): Verilog HDL assignment warning at cache_datapath.sv(205): truncated value with size 32 to match size of target (1) File: /job/student/hdl/cache/cache_datapath.sv Line: 205
+Info (12128): Elaborating entity "array" for hierarchy "cache:cache|cache_datapath:datapath|array:valid0" File: /job/student/hdl/cache/cache_datapath.sv Line: 114
+Info (12128): Elaborating entity "array" for hierarchy "cache:cache|cache_datapath:datapath|array:tag0" File: /job/student/hdl/cache/cache_datapath.sv Line: 145
+Info (12128): Elaborating entity "data_array" for hierarchy "cache:cache|cache_datapath:datapath|data_array:way0" File: /job/student/hdl/cache/cache_datapath.sv Line: 169
+Info (12128): Elaborating entity "bus_adapter" for hierarchy "cache:cache|bus_adapter:bus_adapter" File: /job/student/hdl/cache/cache.sv Line: 57
+Info (12128): Elaborating entity "cacheline_adaptor" for hierarchy "cacheline_adaptor:cacheline_adaptor" File: /job/student/hdl/mp3.sv Line: 55
+Warning (13046): Tri-state node(s) do not directly drive top-level pin(s)
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[0]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[1]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[2]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[3]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[4]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[5]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[6]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[7]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[8]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[9]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[10]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[11]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[12]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[13]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[14]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[15]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[16]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[17]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[18]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[19]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[20]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[21]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[22]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[23]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[24]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[25]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[26]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[27]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[28]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[29]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[30]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[31]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[32]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[33]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[34]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[35]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[36]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[37]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[38]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[39]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[40]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[41]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[42]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[43]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[44]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[45]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[46]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[47]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[48]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[49]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[50]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[51]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[52]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[53]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[54]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[55]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[56]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[57]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[58]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[59]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[60]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[61]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[62]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[63]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[64]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[65]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[66]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[67]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[68]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[69]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[70]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[71]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[72]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[73]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[74]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[75]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[76]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[77]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[78]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[79]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[80]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[81]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[82]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[83]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[84]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[85]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[86]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[87]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[88]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[89]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[90]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[91]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[92]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[93]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[94]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[95]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[96]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[97]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[98]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[99]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[100]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[101]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[102]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[103]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[104]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[105]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[106]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[107]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[108]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[109]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[110]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[111]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[112]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[113]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[114]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[115]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[116]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[117]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[118]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[119]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[120]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[121]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[122]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[123]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[124]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[125]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[126]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[127]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[128]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[129]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[130]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[131]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[132]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[133]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[134]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[135]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[136]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[137]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[138]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[139]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[140]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[141]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[142]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[143]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[144]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[145]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[146]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[147]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[148]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[149]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[150]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[151]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[152]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[153]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[154]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[155]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[156]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[157]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[158]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[159]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[160]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[161]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[162]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[163]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[164]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[165]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[166]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[167]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[168]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[169]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[170]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[171]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[172]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[173]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[174]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[175]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[176]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[177]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[178]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[179]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[180]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[181]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[182]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[183]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[184]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[185]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[186]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[187]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[188]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[189]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[190]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[191]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[192]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[193]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[194]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[195]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[196]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[197]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[198]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[199]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[200]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[201]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[202]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[203]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[204]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[205]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[206]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[207]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[208]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[209]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[210]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[211]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[212]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[213]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[214]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[215]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[216]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[217]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[218]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[219]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[220]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[221]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[222]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[223]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[224]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[225]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[226]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[227]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[228]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[229]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[230]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[231]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[232]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[233]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[234]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[235]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[236]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[237]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[238]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[239]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[240]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[241]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[242]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[243]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[244]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[245]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[246]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[247]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[248]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[249]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[250]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[251]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[252]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[253]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[254]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|pmem_wdata_cache[255]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 26
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[0]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[1]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[2]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[3]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[4]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[5]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[6]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[7]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[8]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[9]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[10]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[11]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[12]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[13]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[14]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[15]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[16]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[17]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[18]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[19]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[20]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[21]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[22]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[23]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[24]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[25]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[26]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[27]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[28]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[29]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[30]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[31]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[32]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[33]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[34]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[35]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[36]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[37]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[38]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[39]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[40]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[41]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[42]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[43]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[44]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[45]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[46]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[47]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[48]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[49]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[50]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[51]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[52]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[53]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[54]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[55]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[56]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[57]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[58]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[59]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[60]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[61]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[62]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[63]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[64]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[65]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[66]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[67]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[68]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[69]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[70]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[71]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[72]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[73]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[74]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[75]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[76]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[77]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[78]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[79]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[80]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[81]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[82]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[83]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[84]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[85]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[86]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[87]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[88]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[89]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[90]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[91]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[92]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[93]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[94]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[95]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[96]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[97]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[98]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[99]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[100]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[101]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[102]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[103]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[104]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[105]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[106]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[107]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[108]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[109]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[110]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[111]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[112]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[113]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[114]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[115]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[116]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[117]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[118]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[119]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[120]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[121]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[122]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[123]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[124]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[125]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[126]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[127]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[128]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[129]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[130]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[131]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[132]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[133]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[134]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[135]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[136]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[137]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[138]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[139]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[140]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[141]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[142]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[143]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[144]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[145]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[146]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[147]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[148]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[149]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[150]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[151]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[152]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[153]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[154]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[155]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[156]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[157]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[158]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[159]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[160]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[161]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[162]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[163]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[164]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[165]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[166]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[167]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[168]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[169]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[170]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[171]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[172]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[173]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[174]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[175]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[176]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[177]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[178]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[179]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[180]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[181]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[182]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[183]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[184]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[185]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[186]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[187]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[188]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[189]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[190]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[191]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[192]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[193]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[194]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[195]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[196]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[197]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[198]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[199]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[200]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[201]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[202]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[203]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[204]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[205]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[206]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[207]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[208]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[209]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[210]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[211]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[212]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[213]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[214]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[215]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[216]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[217]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[218]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[219]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[220]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[221]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[222]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[223]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[224]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[225]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[226]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[227]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[228]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[229]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[230]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[231]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[232]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[233]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[234]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[235]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[236]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[237]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[238]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[239]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[240]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[241]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[242]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[243]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[244]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[245]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[246]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[247]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[248]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[249]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[250]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[251]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[252]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[253]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[254]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+    Warning (13049): Converted tri-state buffer "cache:cache|cache_datapath:datapath|mem_rdata256[255]" feeding internal logic into a wire File: /job/student/hdl/cache/cache_datapath.sv Line: 23
+Warning (12241): 2 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "pmem_address[0]" is stuck at GND File: /job/student/hdl/mp3.sv Line: 11
+    Warning (13410): Pin "pmem_address[1]" is stuck at GND File: /job/student/hdl/mp3.sv Line: 11
+Info (286030): Timing-Driven Synthesis is running
+Info (17049): 96 registers lost all their fanouts during netlist optimizations.
+Info (144001): Generated suppressed messages file /job/student/output_files/mp3.map.smsg
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 6572 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 67 input pins
+    Info (21059): Implemented 98 output pins
+    Info (21061): Implemented 6407 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 530 warnings
+    Info: Peak virtual memory: 1161 megabytes
+    Info: Processing ended: Wed Oct 14 17:35:39 2020
+    Info: Elapsed time: 00:00:35
+    Info: Total CPU time (on all processors): 00:00:34
+Info: *******************************************************************
+Info: Running Quartus Prime Shell
+    Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
+    Info: Copyright (C) 2018  Intel Corporation. All rights reserved.
+    Info: Your use of Intel Corporation's design tools, logic functions 
+    Info: and other software and tools, and its AMPP partner logic 
+    Info: functions, and any output files from any of the foregoing 
+    Info: (including device programming or simulation files), and any 
+    Info: associated documentation or information are expressly subject 
+    Info: to the terms and conditions of the Intel Program License 
+    Info: Subscription Agreement, the Intel Quartus Prime License Agreement,
+    Info: the Intel FPGA IP License Agreement, or other applicable license
+    Info: agreement, including, without limitation, that your use is for
+    Info: the sole purpose of programming logic devices manufactured by
+    Info: Intel and sold by Intel or its authorized distributors.  Please
+    Info: refer to the applicable agreement for further details.
+    Info: Processing started: Wed Oct 14 17:35:40 2020
+Info: Command: quartus_sh -t /opt/altera/quartus/common/tcl/internal/nativelink/qnativesim.tcl --gen_script --rtl_sim mp3 mp3
+Info: Quartus(args): --gen_script --rtl_sim mp3 mp3
+Info: Info: Start Nativelink Simulation process
+Info: Info: NativeLink has detected Verilog design -- Verilog simulation models will be used
+Info: Info: Starting NativeLink simulation with ModelSim-Altera software
+Info: Info: Generated ModelSim-Altera script file /job/student/simulation/modelsim/mp3_run_msim_rtl_verilog.do File: /job/student/simulation/modelsim/mp3_run_msim_rtl_verilog.do Line: 0
+Info: Info: NativeLink simulation flow was successful
+Info: Info: For messages from NativeLink scripts, check the file /job/student/mp3_nativelink_simulation.rpt File: /job/student/mp3_nativelink_simulation.rpt Line: 0
+Info (23030): Evaluation of Tcl script /opt/altera/quartus/common/tcl/internal/nativelink/qnativesim.tcl was successful
+Info: Quartus Prime Shell was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 791 megabytes
+    Info: Processing ended: Wed Oct 14 17:35:40 2020
+    Info: Elapsed time: 00:00:00
+    Info: Total CPU time (on all processors): 00:00:00
+Reading pref.tcl
+
+# 10.5b
+
+ModelSim> transcript on
+ModelSim> > > if {[file exists rtl_work]} {
+	vdel -lib rtl_work -all
+}
+ModelSim> vlib rtl_work
+ModelSim> vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work rtl_work 
+# Modifying /opt/altera/modelsim_ase/linuxaloem/../modelsim.ini
+ModelSim> 
+> 
+vlog -sv -work work +incdir+/job/student/hdl {/job/student/hdl/rv32i_mux_types.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hdl" /job/student/hdl/rv32i_mux_types.sv 
+# -- Compiling package pcmux
+# -- Compiling package marmux
+# -- Compiling package cmpmux
+# -- Compiling package alumux
+# -- Compiling package regfilemux
+# 
+# Top level modules:
+# 	--none--
+# End time: 17:35:41 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+ModelSim> vlog -sv -work work +incdir+/job/student/hdl {/job/student/hdl/rv32i_types.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hdl" /job/student/hdl/rv32i_types.sv 
+# -- Compiling package pcmux
+# -- Compiling package marmux
+# -- Compiling package cmpmux
+# -- Compiling package alumux
+# -- Compiling package regfilemux
+# -- Compiling package rv32i_types
+# -- Importing package pcmux
+# -- Importing package marmux
+# -- Importing package cmpmux
+# -- Importing package alumux
+# -- Importing package regfilemux
+# 
+# Top level modules:
+# 	--none--
+# End time: 17:35:41 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+ModelSim> vlog -sv -work work +incdir+/job/student/hdl/cache {/job/student/hdl/cache/array.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hdl/cache" /job/student/hdl/cache/array.sv 
+# -- Compiling module array
+# 
+# Top level modules:
+# 	array
+# End time: 17:35:41 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+ModelSim> vlog -sv -work work +incdir+/job/student/hdl/cache {/job/student/hdl/cache/cache_control.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hdl/cache" /job/student/hdl/cache/cache_control.sv 
+# -- Compiling module cache_control
+# ** Error: /job/student/hdl/cache/cache_control.sv(42): (vlog-2110) Illegal reference to net "mem_resp".
+# ** Error: /job/student/hdl/cache/cache_control.sv(44): (vlog-2110) Illegal reference to net "pmem_read".
+# ** Error: /job/student/hdl/cache/cache_control.sv(45): (vlog-2110) Illegal reference to net "pmem_write".
+# ** Error: /job/student/hdl/cache/cache_control.sv(84): (vlog-2110) Illegal reference to net "mem_resp".
+# ** Error: /job/student/hdl/cache/cache_control.sv(89): (vlog-2110) Illegal reference to net "pmem_read".
+# ** Error: /job/student/hdl/cache/cache_control.sv(102): (vlog-2110) Illegal reference to net "pmem_write".
+# End time: 17:35:41 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 6, Warnings: 0
+# /opt/altera/modelsim_ase/linuxaloem/vlog failed.
+ModelSim> vlog -sv -work work +incdir+/job/student/hdl/cache {/job/student/hdl/cache/cacheline_adaptor.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hdl/cache" /job/student/hdl/cache/cacheline_adaptor.sv 
+# -- Compiling module cacheline_adaptor
+# 
+# Top level modules:
+# 	cacheline_adaptor
+# End time: 17:35:41 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+ModelSim> vlog -sv -work work +incdir+/job/student/hdl/cache {/job/student/hdl/cache/data_array.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hdl/cache" /job/student/hdl/cache/data_array.sv 
+# -- Compiling module data_array
+# 
+# Top level modules:
+# 	data_array
+# End time: 17:35:41 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+ModelSim> vlog -sv -work work +incdir+/job/student/hdl/cache {/job/student/hdl/cache/bus_adapter.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hdl/cache" /job/student/hdl/cache/bus_adapter.sv 
+# -- Compiling module bus_adapter
+# 
+# Top level modules:
+# 	bus_adapter
+# End time: 17:35:41 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+ModelSim> vlog -sv -work work +incdir+/job/student/hdl/cpu {/job/student/hdl/cpu/pc_reg.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hdl/cpu" /job/student/hdl/cpu/pc_reg.sv 
+# -- Compiling module pc_register
+# 
+# Top level modules:
+# 	pc_register
+# End time: 17:35:41 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+ModelSim> vlog -sv -work work +incdir+/job/student/hdl/cpu {/job/student/hdl/cpu/regfile.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hdl/cpu" /job/student/hdl/cpu/regfile.sv 
+# -- Compiling module regfile
+# 
+# Top level modules:
+# 	regfile
+# End time: 17:35:41 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+ModelSim> vlog -sv -work work +incdir+/job/student/hdl/cpu {/job/student/hdl/cpu/register.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hdl/cpu" /job/student/hdl/cpu/register.sv 
+# -- Compiling module register
+# 
+# Top level modules:
+# 	register
+# End time: 17:35:41 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+ModelSim> vlog -sv -work work +incdir+/job/student/hdl {/job/student/hdl/rv32i_mux_types.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hdl" /job/student/hdl/rv32i_mux_types.sv 
+# -- Compiling package pcmux
+# -- Compiling package marmux
+# -- Compiling package cmpmux
+# -- Compiling package alumux
+# -- Compiling package regfilemux
+# 
+# Top level modules:
+# 	--none--
+# End time: 17:35:41 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+ModelSim> vlog -sv -work work +incdir+/job/student/hdl/cache {/job/student/hdl/cache/cache_datapath.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hdl/cache" /job/student/hdl/cache/cache_datapath.sv 
+# -- Compiling module cache_datapath
+# ** Error: /job/student/hdl/cache/cache_datapath.sv(59): (vlog-2730) Undefined variable: 'ld_way1'.
+# ** Error: /job/student/hdl/cache/cache_datapath.sv(60): (vlog-2730) Undefined variable: 'ld_way0'.
+# ** Error (suppressible): /job/student/hdl/cache/cache_datapath.sv(62): (vlog-2388) 'ld_way0' already declared in this scope (cache_datapath).
+# ** Error (suppressible): /job/student/hdl/cache/cache_datapath.sv(62): (vlog-2388) 'ld_way1' already declared in this scope (cache_datapath).
+# ** Error: /job/student/hdl/cache/cache_datapath.sv(63): (vlog-2730) Undefined variable: 'lru_out'.
+# ** Error (suppressible): /job/student/hdl/cache/cache_datapath.sv(89): (vlog-2388) 'lru_out' already declared in this scope (cache_datapath).
+# ** Error (suppressible): /job/student/hdl/cache/cache_datapath.sv(102): (vlog-2388) 'tag1_cmp' already declared in this scope (cache_datapath).
+# ** Error (suppressible): /job/student/hdl/cache/cache_datapath.sv(102): (vlog-2388) 'tag0_cmp' already declared in this scope (cache_datapath).
+# -- Compiling module comparator
+# End time: 17:35:41 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 8, Warnings: 0
+# /opt/altera/modelsim_ase/linuxaloem/vlog failed.
+ModelSim> vlog -sv -work work +incdir+/job/student/hdl {/job/student/hdl/rv32i_types.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hdl" /job/student/hdl/rv32i_types.sv 
+# -- Compiling package pcmux
+# -- Compiling package marmux
+# -- Compiling package cmpmux
+# -- Compiling package alumux
+# -- Compiling package regfilemux
+# -- Compiling package rv32i_types
+# -- Importing package pcmux
+# -- Importing package marmux
+# -- Importing package cmpmux
+# -- Importing package alumux
+# -- Importing package regfilemux
+# 
+# Top level modules:
+# 	--none--
+# End time: 17:35:41 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+ModelSim> vlog -sv -work work +incdir+/job/student/hdl/cache {/job/student/hdl/cache/cache.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hdl/cache" /job/student/hdl/cache/cache.sv 
+# -- Compiling module cache
+# 
+# Top level modules:
+# 	cache
+# End time: 17:35:41 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+ModelSim> vlog -sv -work work +incdir+/job/student/hdl/cpu {/job/student/hdl/cpu/control.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hdl/cpu" /job/student/hdl/cpu/control.sv 
+# -- Compiling package control_sv_unit
+# -- Importing package rv32i_types
+# -- Importing package pcmux
+# -- Importing package marmux
+# -- Importing package cmpmux
+# -- Importing package alumux
+# -- Importing package regfilemux
+# -- Compiling module control
+# 
+# Top level modules:
+# 	control
+# End time: 17:35:41 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+ModelSim> vlog -sv -work work +incdir+/job/student/hdl/cpu {/job/student/hdl/cpu/datapath.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hdl/cpu" /job/student/hdl/cpu/datapath.sv 
+# -- Compiling package datapath_sv_unit
+# -- Importing package rv32i_types
+# -- Importing package pcmux
+# -- Importing package marmux
+# -- Importing package cmpmux
+# -- Importing package alumux
+# -- Importing package regfilemux
+# -- Compiling module datapath
+# -- Compiling module cmp_module
+# 
+# Top level modules:
+# 	datapath
+# End time: 17:35:41 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+ModelSim> vlog -sv -work work +incdir+/job/student/hdl/cpu {/job/student/hdl/cpu/alu.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hdl/cpu" /job/student/hdl/cpu/alu.sv 
+# -- Compiling package alu_sv_unit
+# -- Importing package rv32i_types
+# -- Importing package pcmux
+# -- Importing package marmux
+# -- Importing package cmpmux
+# -- Importing package alumux
+# -- Importing package regfilemux
+# -- Compiling module alu
+# 
+# Top level modules:
+# 	alu
+# End time: 17:35:41 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+ModelSim> vlog -sv -work work +incdir+/job/student/hdl/cpu {/job/student/hdl/cpu/ir.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hdl/cpu" /job/student/hdl/cpu/ir.sv 
+# -- Compiling package ir_sv_unit
+# -- Importing package rv32i_types
+# -- Importing package pcmux
+# -- Importing package marmux
+# -- Importing package cmpmux
+# -- Importing package alumux
+# -- Importing package regfilemux
+# -- Compiling module ir
+# 
+# Top level modules:
+# 	ir
+# End time: 17:35:41 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+ModelSim> vlog -sv -work work +incdir+/job/student/hdl/cpu {/job/student/hdl/cpu/cpu.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hdl/cpu" /job/student/hdl/cpu/cpu.sv 
+# -- Compiling package cpu_sv_unit
+# -- Importing package rv32i_types
+# -- Importing package pcmux
+# -- Importing package marmux
+# -- Importing package cmpmux
+# -- Importing package alumux
+# -- Importing package regfilemux
+# -- Compiling module cpu
+# 
+# Top level modules:
+# 	cpu
+# End time: 17:35:41 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+ModelSim> vlog -sv -work work +incdir+/job/student/hdl {/job/student/hdl/mp3.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hdl" /job/student/hdl/mp3.sv 
+# -- Compiling package mp3_sv_unit
+# -- Importing package rv32i_types
+# -- Importing package pcmux
+# -- Importing package marmux
+# -- Importing package cmpmux
+# -- Importing package alumux
+# -- Importing package regfilemux
+# -- Compiling module mp3
+# 
+# Top level modules:
+# 	mp3
+# End time: 17:35:41 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+ModelSim> 
+> 
+vlog -sv -work work +incdir+/job/student/hvl {/job/student/hvl/top.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:35:41 on Oct 14,2020
+# vlog -sv -work work "+incdir+/job/student/hvl" /job/student/hvl/top.sv 
+# -- Compiling interface top_itf
+# ** Warning: ** while parsing file included at /job/student/hvl/top.sv(6)
+# ** while parsing file included at hvl/cache/ag_cache_tb.sv(8)
+# ** while parsing file included at hvl/cache/ag_cache_scoreboard.sv(3)
+# ** at hvl/cache/ag_cache_model.sv(49): (vlog-2897) Using non-standard foreach loop variable list syntax.
+# -- Compiling package top_sv_unit
+# -- Importing package rv32i_types
+# -- Importing package pcmux
+# -- Importing package marmux
+# -- Importing package cmpmux
+# -- Importing package alumux
+# -- Importing package regfilemux
+# -- Importing package mp2_cpu_types
+# -- Importing package ag_cache_types
+# ** Warning: hvl/cache/ag_cache_model.sv(49): (vlog-2897) Using non-standard foreach loop variable list syntax.
+# ** Warning: hvl/cache/ag_cache_sequencer_direct.sv(10): (vlog-2240) Treating stand-alone use of function '_build_slist' as an implicit VOID cast.
+# ** Warning: hvl/cache/ag_cache_sequencer_direct.sv(13): (vlog-2250) Function "_build_slist" has no return value assignment.
+# -- Compiling package mp2_cpu_types
+# -- Compiling interface mp2_cpu_itf
+# ** Warning: hvl/cache/ag_cache_model.sv(49): (vlog-2897) Using non-standard foreach loop variable list syntax.
+# -- Compiling module riscv_formal_monitor_rv32i
+# -- Compiling module riscv_formal_monitor_rv32i_rob
+# -- Compiling module riscv_formal_monitor_rv32i_isa_spec
+# -- Compiling module riscv_formal_monitor_rv32i_insn_add
+# -- Compiling module riscv_formal_monitor_rv32i_insn_addi
+# -- Compiling module riscv_formal_monitor_rv32i_insn_and
+# -- Compiling module riscv_formal_monitor_rv32i_insn_andi
+# -- Compiling module riscv_formal_monitor_rv32i_insn_auipc
+# -- Compiling module riscv_formal_monitor_rv32i_insn_beq
+# -- Compiling module riscv_formal_monitor_rv32i_insn_bge
+# -- Compiling module riscv_formal_monitor_rv32i_insn_bgeu
+# -- Compiling module riscv_formal_monitor_rv32i_insn_blt
+# -- Compiling module riscv_formal_monitor_rv32i_insn_bltu
+# -- Compiling module riscv_formal_monitor_rv32i_insn_bne
+# -- Compiling module riscv_formal_monitor_rv32i_insn_jal
+# -- Compiling module riscv_formal_monitor_rv32i_insn_jalr
+# -- Compiling module riscv_formal_monitor_rv32i_insn_lb
+# -- Compiling module riscv_formal_monitor_rv32i_insn_lbu
+# -- Compiling module riscv_formal_monitor_rv32i_insn_lh
+# -- Compiling module riscv_formal_monitor_rv32i_insn_lhu
+# -- Compiling module riscv_formal_monitor_rv32i_insn_lui
+# -- Compiling module riscv_formal_monitor_rv32i_insn_lw
+# -- Compiling module riscv_formal_monitor_rv32i_insn_or
+# -- Compiling module riscv_formal_monitor_rv32i_insn_ori
+# -- Compiling module riscv_formal_monitor_rv32i_insn_sb
+# -- Compiling module riscv_formal_monitor_rv32i_insn_sh
+# -- Compiling module riscv_formal_monitor_rv32i_insn_sll
+# -- Compiling module riscv_formal_monitor_rv32i_insn_slli
+# -- Compiling module riscv_formal_monitor_rv32i_insn_slt
+# -- Compiling module riscv_formal_monitor_rv32i_insn_slti
+# -- Compiling module riscv_formal_monitor_rv32i_insn_sltiu
+# -- Compiling module riscv_formal_monitor_rv32i_insn_sltu
+# -- Compiling module riscv_formal_monitor_rv32i_insn_sra
+# -- Compiling module riscv_formal_monitor_rv32i_insn_srai
+# -- Compiling module riscv_formal_monitor_rv32i_insn_srl
+# -- Compiling module riscv_formal_monitor_rv32i_insn_srli
+# -- Compiling module riscv_formal_monitor_rv32i_insn_sub
+# -- Compiling module riscv_formal_monitor_rv32i_insn_sw
+# -- Compiling module riscv_formal_monitor_rv32i_insn_xor
+# -- Compiling module riscv_formal_monitor_rv32i_insn_xori
+# -- Compiling interface data_xchange_itf
+# -- Compiling module cpu_tb
+# -- Compiling package ag_cache_types
+# -- Compiling interface ag_cache_itf
+# -- Compiling module ag_cache_tb
+# -- Compiling interface ag_dumb_itf
+# -- Compiling module mp3_tb
+# 
+# Top level modules:
+# 	mp3_tb
+# End time: 17:35:42 on Oct 14,2020, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 5
+ModelSim> 
+> 
+vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L arriaii_hssi_ver -L arriaii_pcie_hip_ver -L arriaii_ver -L rtl_work -L work -voptargs="+acc"  mp3_tb
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L arriaii_hssi_ver -L arriaii_pcie_hip_ver -L arriaii_ver -L rtl_work -L work -voptargs=""+acc"" mp3_tb 
+# Start time: 17:35:42 on Oct 14,2020
+# Loading sv_std.std
+# Loading work.ag_cache_types
+# Loading work.mp2_cpu_types
+# Loading work.regfilemux
+# Loading work.alumux
+# Loading work.cmpmux
+# Loading work.marmux
+# Loading work.pcmux
+# Loading work.rv32i_types
+# Loading work.top_sv_unit
+# Loading work.mp3_tb
+# Loading work.top_itf
+# Loading work.ag_dumb_itf
+# Loading work.cpu_tb
+# Loading work.mp2_cpu_itf
+# Loading work.data_xchange_itf
+# Loading work.mp3_sv_unit
+# Loading work.mp3
+# Loading work.cpu_sv_unit
+# Loading work.cpu
+# Loading work.control_sv_unit
+# Loading work.control
+# Loading work.datapath_sv_unit
+# Loading work.datapath
+# Loading work.ir_sv_unit
+# Loading work.ir
+# Loading work.register
+# Loading work.pc_register
+# Loading work.regfile
+# Loading work.alu_sv_unit
+# Loading work.alu
+# Loading work.cmp_module
+# Loading work.cache
+# ** Error: (vsim-3033) /job/student/hdl/cache/cache.sv(43): Instantiation of 'cache_control' failed. The design unit was not found.
+#    Time: 0 ps  Iteration: 0  Instance: /mp3_tb/cpu_dut/dut/cache File: /job/student/hdl/cache/cache.sv
+#         Searched libraries:
+#             /opt/altera/modelsim_ase/altera/verilog/altera
+#             /opt/altera/modelsim_ase/altera/verilog/220model
+#             /opt/altera/modelsim_ase/altera/verilog/sgate
+#             /opt/altera/modelsim_ase/altera/verilog/altera_mf
+#             /opt/altera/modelsim_ase/altera/verilog/altera_lnsim
+#             /opt/altera/modelsim_ase/altera/verilog/arriaii_hssi
+#             /opt/altera/modelsim_ase/altera/verilog/arriaii_pcie_hip
+#             /opt/altera/modelsim_ase/altera/verilog/arriaii
+#             /job/student/rtl_work
+#             /job/student/rtl_work
+# ** Error: (vsim-3033) /job/student/hdl/cache/cache.sv(48): Instantiation of 'cache_datapath' failed. The design unit was not found.
+#    Time: 0 ps  Iteration: 0  Instance: /mp3_tb/cpu_dut/dut/cache File: /job/student/hdl/cache/cache.sv
+#         Searched libraries:
+#             /opt/altera/modelsim_ase/altera/verilog/altera
+#             /opt/altera/modelsim_ase/altera/verilog/220model
+#             /opt/altera/modelsim_ase/altera/verilog/sgate
+#             /opt/altera/modelsim_ase/altera/verilog/altera_mf
+#             /opt/altera/modelsim_ase/altera/verilog/altera_lnsim
+#             /opt/altera/modelsim_ase/altera/verilog/arriaii_hssi
+#             /opt/altera/modelsim_ase/altera/verilog/arriaii_pcie_hip
+#             /opt/altera/modelsim_ase/altera/verilog/arriaii
+#             /job/student/rtl_work
+#             /job/student/rtl_work
+# Loading work.bus_adapter
+# Loading work.cacheline_adaptor
+# Loading work.riscv_formal_monitor_rv32i
+# Loading work.riscv_formal_monitor_rv32i_isa_spec
+# Loading work.riscv_formal_monitor_rv32i_insn_add
+# Loading work.riscv_formal_monitor_rv32i_insn_addi
+# Loading work.riscv_formal_monitor_rv32i_insn_and
+# Loading work.riscv_formal_monitor_rv32i_insn_andi
+# Loading work.riscv_formal_monitor_rv32i_insn_auipc
+# Loading work.riscv_formal_monitor_rv32i_insn_beq
+# Loading work.riscv_formal_monitor_rv32i_insn_bge
+# Loading work.riscv_formal_monitor_rv32i_insn_bgeu
+# Loading work.riscv_formal_monitor_rv32i_insn_blt
+# Loading work.riscv_formal_monitor_rv32i_insn_bltu
+# Loading work.riscv_formal_monitor_rv32i_insn_bne
+# Loading work.riscv_formal_monitor_rv32i_insn_jal
+# Loading work.riscv_formal_monitor_rv32i_insn_jalr
+# Loading work.riscv_formal_monitor_rv32i_insn_lb
+# Loading work.riscv_formal_monitor_rv32i_insn_lbu
+# Loading work.riscv_formal_monitor_rv32i_insn_lh
+# Loading work.riscv_formal_monitor_rv32i_insn_lhu
+# Loading work.riscv_formal_monitor_rv32i_insn_lui
+# Loading work.riscv_formal_monitor_rv32i_insn_lw
+# Loading work.riscv_formal_monitor_rv32i_insn_or
+# Loading work.riscv_formal_monitor_rv32i_insn_ori
+# Loading work.riscv_formal_monitor_rv32i_insn_sb
+# Loading work.riscv_formal_monitor_rv32i_insn_sh
+# Loading work.riscv_formal_monitor_rv32i_insn_sll
+# Loading work.riscv_formal_monitor_rv32i_insn_slli
+# Loading work.riscv_formal_monitor_rv32i_insn_slt
+# Loading work.riscv_formal_monitor_rv32i_insn_slti
+# Loading work.riscv_formal_monitor_rv32i_insn_sltiu
+# Loading work.riscv_formal_monitor_rv32i_insn_sltu
+# Loading work.riscv_formal_monitor_rv32i_insn_sra
+# Loading work.riscv_formal_monitor_rv32i_insn_srai
+# Loading work.riscv_formal_monitor_rv32i_insn_srl
+# Loading work.riscv_formal_monitor_rv32i_insn_srli
+# Loading work.riscv_formal_monitor_rv32i_insn_sub
+# Loading work.riscv_formal_monitor_rv32i_insn_sw
+# Loading work.riscv_formal_monitor_rv32i_insn_xor
+# Loading work.riscv_formal_monitor_rv32i_insn_xori
+# Loading work.riscv_formal_monitor_rv32i_rob
+# Loading work.ag_cache_tb
+# Loading work.ag_cache_itf
+# ** Error: (vsim-3033) /job/student/hdl/cache/cache.sv(43): Instantiation of 'cache_control' failed. The design unit was not found.
+#    Time: 0 ps  Iteration: 0  Instance: /mp3_tb/cache_dut/dut File: /job/student/hdl/cache/cache.sv
+#         Searched libraries:
+#             /opt/altera/modelsim_ase/altera/verilog/altera
+#             /opt/altera/modelsim_ase/altera/verilog/220model
+#             /opt/altera/modelsim_ase/altera/verilog/sgate
+#             /opt/altera/modelsim_ase/altera/verilog/altera_mf
+#             /opt/altera/modelsim_ase/altera/verilog/altera_lnsim
+#             /opt/altera/modelsim_ase/altera/verilog/arriaii_hssi
+#             /opt/altera/modelsim_ase/altera/verilog/arriaii_pcie_hip
+#             /opt/altera/modelsim_ase/altera/verilog/arriaii
+#             /job/student/rtl_work
+#             /job/student/rtl_work
+# ** Error: (vsim-3033) /job/student/hdl/cache/cache.sv(48): Instantiation of 'cache_datapath' failed. The design unit was not found.
+#    Time: 0 ps  Iteration: 0  Instance: /mp3_tb/cache_dut/dut File: /job/student/hdl/cache/cache.sv
+#         Searched libraries:
+#             /opt/altera/modelsim_ase/altera/verilog/altera
+#             /opt/altera/modelsim_ase/altera/verilog/220model
+#             /opt/altera/modelsim_ase/altera/verilog/sgate
+#             /opt/altera/modelsim_ase/altera/verilog/altera_mf
+#             /opt/altera/modelsim_ase/altera/verilog/altera_lnsim
+#             /opt/altera/modelsim_ase/altera/verilog/arriaii_hssi
+#             /opt/altera/modelsim_ase/altera/verilog/arriaii_pcie_hip
+#             /opt/altera/modelsim_ase/altera/verilog/arriaii
+#             /job/student/rtl_work
+#             /job/student/rtl_work
+# Error loading design
+# End time: 17:35:42 on Oct 14,2020, Elapsed time: 0:00:00
+# Errors: 4, Warnings: 0
+
+```
+
+</details>
+
+
+### Targeted Tests: 
+<ul>
+</ul>
+
+---
+Staff use: 5f872fbe992def9c51c6f852
+
+[success]: https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Green_check.svg/13px-Green_check.svg.png 
+[failure]: https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Red_x.svg/13px-Red_x.svg.png 
