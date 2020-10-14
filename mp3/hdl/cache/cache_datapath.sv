@@ -23,10 +23,10 @@ module cache_datapath #(
     output [255:0] mem_rdata256,
 
     // outputs to cacheline adaptor
-    output [255:0] pmem_wdata_cache, 
+    output [255:0] pmem_wdata, 
 
     // inputs from cacheline adaptor
-    input [255:0] pmem_rdata_cache,
+    input [255:0] pmem_rdata,
 
     // control signals from fsm
     input logic ld_valid, ld_tag, ld_dirty, ld_lru, ld_data,
@@ -179,7 +179,7 @@ data_array way1
 /* logic for the muxes in the datapath */
 always_comb begin : mux_logic
     unique case(datain_mux_sel)
-        1'b0: datain = pmem_rdata_cache;
+        1'b0: datain = pmem_rdata;
         1'b1: datain = mem_wdata256;
     endcase
 

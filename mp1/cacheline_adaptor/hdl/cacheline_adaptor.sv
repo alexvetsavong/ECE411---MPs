@@ -24,58 +24,17 @@ module cacheline_adaptor
 );
 
 int it;
-
-cla_controller fsm(.*);
-cla_datapath data(.*);
-
-endmodule : cacheline_adaptor
-
-module cla_datapath(
-    // signals from control
-    input int it,
-    input logic resp_o,
-    input resp_i,
-    input write_o,
-
-    // Port to LLC (Lowest Level Cache)
-    input logic [255:0] line_i,
-    output logic [255:0] line_o,
-    input logic [31:0] address_i,
-
-    // Port to memory
-    input logic [63:0] burst_i,
-    output logic [63:0] burst_o,
-    output logic [31:0] address_o
-);
-
 logic [`BURST_SIZE-1:0] b_buffer;
 logic [`LINE_SIZE-1:0] l_buffer;
 
 always_comb begin
     address_o = address_i;
 
-    if (resp_i) l_buffer[64*it +: 64] = burst_i;
     b_buffer = line_i[64*it +: 64];
 
-    if (resp_o) line_o = l_buffer;
-    if (write_o) burst_o = b_buffer;
+    line_o =  l_buffer;
+    burst_o = b_buffer;
 end
-
-endmodule : cla_datapath
-
-module cla_controller (
-    input clk,
-    input reset_n,
-
-    input read_i,
-    input write_i,
-    input resp_i,
-
-    output int it,
-    output logic read_o,
-    output logic write_o,
-    output logic resp_o
-);
 
 logic [31:0] count_reg = 0, count_next;
 
@@ -104,8 +63,12 @@ always_comb begin
                 next_state = ld;
                 count_next = 0; 
             end
-            if (write_i) begin 
+            else if (write_i) begin 
                 next_state = st;
+                count_next = 0;
+            end
+            else begin
+                next_state = idle;
                 count_next = 0;
             end
         end
@@ -129,19 +92,25 @@ always_comb begin
         end
 
         finish: begin count_next = 0; next_state = idle; end
-        default: next_state = state;
+        default: begin next_state = state; count_next = 0; end
     endcase
 end
 
 /* State action logic */
 always_comb begin
+    set_defaults();
     case (state)
         idle: set_defaults();
 
         ld: read_o = 1;
         st: write_o = 1;
 
-        finish: begin read_o = 0; resp_o = 1; end
+        finish: begin 
+            read_o = 0; 
+            resp_o = 1; 
+        end
+
+        default: set_defaults();
     endcase
 end
 
@@ -155,6 +124,7 @@ always_ff @(posedge clk) begin
         state <= next_state; 
         count_reg <= count_next;
     end
+    l_buffer[64*it +: 64] <= burst_i;
 end
 
-endmodule : cla_controller
+endmodule : cacheline_adaptor

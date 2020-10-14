@@ -23,11 +23,11 @@ module cache #(
     output mem_resp,
 
     // outputs to cacheline adaptor
-    output [255:0] pmem_wdata_cache, 
+    output [255:0] pmem_wdata, 
     output pmem_read, pmem_write,
 
     // inputs from cacheline adaptor
-    input [255:0] pmem_rdata_cache, 
+    input [255:0] pmem_rdata, 
     input pmem_resp
 );
 
