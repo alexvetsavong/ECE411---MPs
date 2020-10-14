@@ -24,6 +24,7 @@ module cache_datapath #(
 
     // outputs to cacheline adaptor
     output [255:0] pmem_wdata, 
+    output [31:0] pmem_address,
 
     // inputs from cacheline adaptor
     input [255:0] pmem_rdata,
@@ -40,17 +41,20 @@ module cache_datapath #(
     output logic dirty,
     output logic hit
 );
-
 // array instantiations for storing the metadata and memory data
-logic [23:0] tag;
 logic [2:0] index;
 
 /* mux select values */
 logic dataout_mux_sel;
-
 /* outputs for each metadata array */
-logic valid_1_o, tag_1_o, dirty_1_o;
-logic valid_0_o, tag_0_o, dirty_0_o;
+logic valid_1_o; 
+logic [23:0] tag_1_o; 
+logic dirty_1_o;
+
+logic valid_0_o; 
+logic [23:0] tag_0_o; 
+logic dirty_0_o;
+
 logic lru_out;
 
 logic [s_line-1:0] datain, dataout, dataout_0, dataout_1;
@@ -66,56 +70,28 @@ logic ld_valid1, ld_valid0;
 logic ld_tag1, ld_tag0;
 logic ld_dirty1, ld_dirty0;
 
-assign tag = mem_address[31:8]; 
-assign index = mem_address[7:5];
-
-assign write_en_1 = (ld_way1 && ld_data) ? mem_byte_enable256 : 32'b0;
-assign write_en_0 = (ld_way0 && ld_data) ? mem_byte_enable256 : 32'b0;
-
-assign ld_way1 = lru_out;
-assign ld_way0 = ~(lru_out);
-
-/* assignments to save on typing later */
-assign ld_valid0 = ld_valid & ld_way0;
-assign ld_tag0 = ld_tag & ld_way0;
-assign ld_dirty0 = ld_dirty & ld_way0;
-
-assign ld_valid1 = ld_valid & ld_way1;
-assign ld_tag1 = ld_tag & ld_way1;
-assign ld_dirty1 = ld_dirty & ld_way1;
-
-assign mem_rdata256 = load_cpu ? dataout : 256'bZ;
-assign pmem_wdata_cache = load_pmem ? dataout : 256'bZ;
-
-/* this will select the other way as lru on each read/write */
-assign lru_in = ~(lru_out);
-
 /* comparators and assignments to check for a hit/miss */
 comparator #(.width(s_tag)) tag1_check
 (
-    .a(tag), .b(tag_1_o), .result(tag1_cmp)
+    .a(tag_in), .b(tag_1_o), .result(tag1_cmp)
 );
 
 comparator #(.width(s_tag)) tag0_check
 (
-    .a(tag), .b(tag_0_o), .result(tag0_cmp)
+    .a(tag_in), .b(tag_0_o), .result(tag0_cmp)
 );
-
-assign hit1 = valid_1_o & tag1_cmp;
-assign hit0 = valid_0_o & tag0_cmp;
-assign hit = hit1 & hit0; 
-assign dirty = dirty_1_o | dirty_0_o;
 
 array valid0
 (
-    .*, .read(rd_valid), .load(ld_valid0), 
+    .clk(clk), .rst(rst), 
+    .read(rd_valid), .load(ld_valid0), 
     .rindex(index), .windex(index), 
     .datain(valid_in), .dataout(valid_0_o)
 );
 
 array valid1
 (
-    .*, 
+    .clk(clk), .rst(rst), 
     .read(rd_valid), .load(ld_valid1), 
     .rindex(index), .windex(index), 
     .datain(valid_in), .dataout(valid_1_o)
@@ -123,14 +99,14 @@ array valid1
 
 array dirty0
 (
-    .*, 
+    .clk(clk), .rst(rst), 
     .read(rd_dirty), .load(ld_dirty0), 
     .rindex(index), .windex(index), 
     .datain(dirty_in), .dataout(dirty_0_o)
 );
 array dirty1
 (
-    .*, 
+    .clk(clk), .rst(rst), 
     .read(rd_dirty), .load(ld_dirty1), 
     .rindex(index), .windex(index), 
     .datain(dirty_in), .dataout(dirty_1_o)
@@ -138,14 +114,14 @@ array dirty1
 
 array #(.width(s_tag)) tag0
 (
-    .*, 
+    .clk(clk), .rst(rst), 
     .read(rd_tag), .load(ld_tag0), 
     .rindex(index), .windex(index), 
     .datain(tag_in), .dataout(tag_0_o)
 );
 array #(.width(s_tag)) tag1
 (
-    .*, 
+    .clk(clk), .rst(rst), 
     .read(rd_tag), .load(ld_tag1), 
     .rindex(index), .windex(index), 
     .datain(tag_in), .dataout(tag_1_o)
@@ -153,7 +129,7 @@ array #(.width(s_tag)) tag1
 
 array lru
 (
-    .*, 
+    .clk(clk), .rst(rst), 
     .read(rd_lru), .load(ld_lru), 
     .rindex(index), .windex(index), 
     .datain(lru_in), .dataout(lru_out)
@@ -162,7 +138,7 @@ array lru
 /* data array instantiation */
 data_array way0
 (
-    .*, 
+    .clk(clk), .rst(rst), 
     .read(rd_data), .write_en(write_en_0),
     .rindex(index), .windex(index),
     .datain(datain), .dataout(dataout_0)
@@ -170,20 +146,56 @@ data_array way0
 
 data_array way1
 (
-    .*, 
+    .clk(clk), .rst(rst), 
     .read(rd_data), .write_en(write_en_1),
     .rindex(index), .windex(index),
     .datain(datain), .dataout(dataout_1)
 );
 
+assign pmem_address = mem_address;
+
+assign tag_in = mem_address[31:8]; 
+assign index = mem_address[7:5];
+
+assign mem_rdata256 = (load_cpu) ? dataout : 256'b0;
+assign pmem_wdata = (load_pmem) ? dataout : 256'b0;
+
+assign dataout_mux_sel = hit1;
+
+always_comb begin : comb_logic
+    ld_way0 = ~(lru_out);
+    ld_way1 = lru_out;
+
+    write_en_1 = (ld_way1 & ld_data) ? mem_byte_enable256 : 32'b0;
+    write_en_0 = (ld_way0 & ld_data) ? mem_byte_enable256 : 32'b0;
+
+    /* assignments to save on typing later */
+    ld_valid0 = ld_valid & ld_way0;
+    ld_tag0 = ld_tag & ld_way0;
+    ld_dirty0 = ld_dirty & ld_way0;
+
+    ld_valid1 = ld_valid & ld_way1;
+    ld_tag1 = ld_tag & ld_way1;
+    ld_dirty1 = ld_dirty & ld_way1;
+
+    /* this will select the other way as lru on each read/write */
+    lru_in = ~(lru_out);
+
+    hit1 = valid_1_o & tag1_cmp;
+    hit0 = valid_0_o & tag0_cmp;
+    hit = hit1 & hit0; 
+    dirty = dirty_1_o | dirty_0_o;
+
+end : comb_logic
+
 /* logic for the muxes in the datapath */
 always_comb begin : mux_logic
-    unique case(datain_mux_sel)
+    case(datain_mux_sel)
         1'b0: datain = pmem_rdata;
         1'b1: datain = mem_wdata256;
     endcase
 
-    unique case(dataout_mux_sel)
+    case(dataout_mux_sel)
         1'b0: dataout = dataout_0;
         1'b1: dataout = dataout_1;
     endcase
@@ -200,8 +212,9 @@ module comparator #(
     a, b,
     result
 );
-    input logic [width-1:0] a, b;
+    input logic [width-1:0] a; 
+    input logic [width-1:0] b;
     output logic result;
-    assign result = (a == b) ? 1 : 0;
+    assign result = (a == b) ? 1'b1 : 1'b0;
 
 endmodule : comparator 

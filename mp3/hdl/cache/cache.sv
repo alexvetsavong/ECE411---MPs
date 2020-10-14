@@ -23,12 +23,13 @@ module cache #(
     output logic mem_resp,
 
     // outputs to cacheline adaptor
-    output [255:0] pmem_wdata, 
+    output logic [31:0] pmem_address,
+    output logic [255:0] pmem_wdata, 
     output logic pmem_read, pmem_write,
 
     // inputs from cacheline adaptor
-    input [255:0] pmem_rdata, 
-    input pmem_resp
+    input logic [255:0] pmem_rdata, 
+    input logic pmem_resp
 );
 
 logic [255:0] mem_rdata256, mem_wdata256; 

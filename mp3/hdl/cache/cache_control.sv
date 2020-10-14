@@ -31,11 +31,11 @@ function void set_defaults();
     ld_lru = 0;
     ld_data = 0;
 
-    rd_valid = 1;
-    rd_dirty = 1;
-    rd_tag = 1;
-    rd_lru = 1;
-    rd_data = 1;
+    rd_valid = 0;
+    rd_dirty = 0;
+    rd_tag = 0;
+    rd_lru = 0;
+    rd_data = 0;
 
     load_cpu = 0;
     load_pmem = 0;
@@ -72,6 +72,7 @@ begin : state_actions
 
             if (hit == 1) begin 
                 ld_lru = 1;
+                
                 if (mem_write == 1) begin
                     dirty_in = 1;
                     ld_dirty = 1;

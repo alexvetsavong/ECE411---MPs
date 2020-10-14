@@ -26,7 +26,7 @@ module datapath
     /* datapath ouputs to memory */
     input rv32i_word mem_rdata,
     output rv32i_word mem_wdata, // signal used by RVFI
-    output rv32i_word mem_address, 
+    output rv32i_word mem_addr, 
     
     /* datapath ouputs to controller module */
     output logic [1:0] mask_shift,

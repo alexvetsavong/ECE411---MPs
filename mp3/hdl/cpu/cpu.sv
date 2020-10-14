@@ -49,6 +49,6 @@ logic [4:0] rs2;
 control control(.*);
 
 // Keep datapath named `datapath` for RVFI Monitor
-datapath datapath(.*);
+datapath datapath(.*, .mem_addr(mem_address));
 
 endmodule : cpu
