@@ -51,4 +51,4 @@ control control(.*);
 // Keep datapath named `datapath` for RVFI Monitor
 datapath datapath(.*);
 
-endmodule : mp3
+endmodule : cpu
