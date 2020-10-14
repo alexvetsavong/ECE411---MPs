@@ -6,11 +6,11 @@ module cache_control (
     input rst,
 
     // cpu
-    input pmem_resp, mem_read, mem_write,
-    output mem_resp,
+    input logic pmem_resp, mem_read, mem_write,
+    output logic mem_resp,
 
     // physical memory
-    output pmem_read, pmem_write,
+    output logic pmem_read, pmem_write,
 
     // datapath
     output logic ld_valid, ld_tag, ld_dirty, ld_lru, ld_data,

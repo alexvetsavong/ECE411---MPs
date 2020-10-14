@@ -19,12 +19,12 @@ module cache #(
     input logic [31:0] mem_wdata, 
     input logic [31:0] mem_address,
     input logic [3:0] mem_byte_enable,
-    input mem_read, mem_write,
-    output mem_resp,
+    input logic mem_read, mem_write,
+    output logic mem_resp,
 
     // outputs to cacheline adaptor
     output [255:0] pmem_wdata, 
-    output pmem_read, pmem_write,
+    output logic pmem_read, pmem_write,
 
     // inputs from cacheline adaptor
     input [255:0] pmem_rdata, 

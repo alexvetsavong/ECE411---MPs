@@ -45,28 +45,35 @@ module cache_datapath #(
 logic [23:0] tag;
 logic [2:0] index;
 
-assign tag = mem_address[31:8]; 
-assign index = mem_address[7:5];
+/* mux select values */
+logic dataout_mux_sel;
+
+/* outputs for each metadata array */
+logic valid_1_o, tag_1_o, dirty_1_o;
+logic valid_0_o, tag_0_o, dirty_0_o;
+logic lru_out;
 
 logic [s_line-1:0] datain, dataout, dataout_0, dataout_1;
-assign mem_rdata256 = load_cpu ? dataout : 256'bZ;
-assign pmem_wdata_cache = load_pmem ? dataout : 256'bZ;
-
 logic [s_tag-1:0] tag_in;
 logic lru_in;
-
 logic [s_mask-1:0] write_en_1, write_en_0;
-assign write_en_1 = (ld_way1 && ld_data) ? mem_byte_enable256 : 32'b0;
-assign write_en_0 = (ld_way0 && ld_data) ? mem_byte_enable256 : 32'b0;
-
 logic ld_way0, ld_way1;
-assign ld_way1 = lru_out;
-assign ld_way0 = ~(lru_out);
+
+logic hit1, hit0, tag1_cmp, tag0_cmp;
 
 /* control signals for each way */
 logic ld_valid1, ld_valid0;
 logic ld_tag1, ld_tag0;
 logic ld_dirty1, ld_dirty0;
+
+assign tag = mem_address[31:8]; 
+assign index = mem_address[7:5];
+
+assign write_en_1 = (ld_way1 && ld_data) ? mem_byte_enable256 : 32'b0;
+assign write_en_0 = (ld_way0 && ld_data) ? mem_byte_enable256 : 32'b0;
+
+assign ld_way1 = lru_out;
+assign ld_way0 = ~(lru_out);
 
 /* assignments to save on typing later */
 assign ld_valid0 = ld_valid & ld_way0;
@@ -77,16 +84,11 @@ assign ld_valid1 = ld_valid & ld_way1;
 assign ld_tag1 = ld_tag & ld_way1;
 assign ld_dirty1 = ld_dirty & ld_way1;
 
+assign mem_rdata256 = load_cpu ? dataout : 256'bZ;
+assign pmem_wdata_cache = load_pmem ? dataout : 256'bZ;
+
 /* this will select the other way as lru on each read/write */
 assign lru_in = ~(lru_out);
-
-/* mux select values */
-logic dataout_mux_sel;
-
-/* outputs for each metadata array */
-logic valid_1_o, tag_1_o, dirty_1_o;
-logic valid_0_o, tag_0_o, dirty_0_o;
-logic lru_out;
 
 /* comparators and assignments to check for a hit/miss */
 comparator #(.width(s_tag)) tag1_check
@@ -99,11 +101,9 @@ comparator #(.width(s_tag)) tag0_check
     .a(tag), .b(tag_0_o), .result(tag0_cmp)
 );
 
-logic hit1, hit0, tag1_cmp, tag0_cmp;
 assign hit1 = valid_1_o & tag1_cmp;
 assign hit0 = valid_0_o & tag0_cmp;
 assign hit = hit1 & hit0; 
-
 assign dirty = dirty_1_o | dirty_0_o;
 
 array valid0
