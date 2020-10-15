@@ -160,7 +160,7 @@ assign index = mem_address[7:5];
 assign mem_rdata256 = (load_cpu) ? dataout : 256'b0;
 assign pmem_wdata = (load_pmem) ? dataout : 256'b0;
 
-assign dataout_mux_sel = hit1;
+assign dataout_mux_sel = lru_out;
 
 always_comb begin : comb_logic
     ld_way0 = ~(lru_out);
