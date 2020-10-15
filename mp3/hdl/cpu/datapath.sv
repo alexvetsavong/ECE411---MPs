@@ -26,7 +26,7 @@ module datapath
     /* datapath ouputs to memory */
     input rv32i_word mem_rdata,
     output rv32i_word mem_wdata, // signal used by RVFI
-    output rv32i_word mem_addr, 
+    output rv32i_word mem_address, 
     
     /* datapath ouputs to controller module */
     output logic [1:0] mask_shift,
@@ -42,8 +42,8 @@ module datapath
 rv32i_word pcmux_out;
 rv32i_word mdrreg_out;
 /*****************************************************************************/
-rv32i_word mem_addr_out;
-assign mask_shift = mem_addr_out[1:0];
+rv32i_word mem_addr;
+assign mask_shift = mem_addr[1:0];
 
 store_funct3_t store_funct3;
 assign store_funct3 = store_funct3_t'(funct3);
@@ -80,13 +80,13 @@ register MDR(
 );
 
 rv32i_word marmux_out;
-assign mem_address = mem_addr_out & 32'hfffffffc;
+assign mem_address = mem_addr & 32'hfffffffc;
 register MAR(
     .clk  (clk),
     .rst (rst),
     .load (load_mar),
     .in   (marmux_out),
-    .out  (mem_addr_out)
+    .out  (mem_addr)
 );
 
 // pc register instantiation

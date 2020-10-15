@@ -21,7 +21,7 @@ tb_itf itf(clk);
 logic [63:0] order;
 initial order = 0;
 always @(posedge itf.clk iff commit) order <= order + 1;
-int timeout = 100000000;   // Feel Free to adjust the timeout value
+int timeout = 10000;   // Feel Free to adjust the timeout value
 assign itf.registers = dut.cpu.datapath.regfile.data;
 assign itf.halt = dut.cpu.load_pc &
                   (dut.cpu.datapath.pc_out == dut.cpu.datapath.pcmux_out);
