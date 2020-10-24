@@ -25,7 +25,7 @@ module cache_control (
 );
 
 logic read_o, write_o, resp_o;
-logic [1:0] counter;
+logic [1:0] counter, counter_next;
 
 function automatic void set_defaults();
     //TODO: write out all the default values for every control signal here
@@ -159,15 +159,18 @@ end
 
 // logic for determining the next state transition
 always_comb 
-begin : next_state_logic 
-    case(state)
+begin : next_state_logic
 
+    counter_next = counter + 1;
+
+    case(state)
         idle: begin
             if (mem_read || mem_write) next_state = check;
             else next_state = idle;
         end
 
         check: begin 
+            counter_next = 0;
             if (hit) next_state = idle;
             else if (dirty) next_state = wb;
             else  next_state = read;
@@ -196,7 +199,7 @@ always_ff @(posedge clk) begin
         counter <= 2'b00;
     end
     else begin 
-        counter <= counter + 1;
+        counter <= counter_next;
         state <= next_state; 
 
         pmem_read <= 1'b0;
@@ -206,6 +209,7 @@ always_ff @(posedge clk) begin
             pmem_read <= read_o;
             pmem_write <= 1'b0;
         end
+
         else if (read_o == 1'b1 && counter == 2'b01) begin
             pmem_read <= 1'b0; 
             pmem_write <= 1'b0; 
@@ -222,6 +226,7 @@ always_ff @(posedge clk) begin
             pmem_write <= 1'b0; 
             counter <= 2'b01;
         end
+
     end
     mem_resp <= resp_o;
 end
