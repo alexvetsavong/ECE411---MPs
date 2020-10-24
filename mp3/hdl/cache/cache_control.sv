@@ -72,7 +72,7 @@ endfunction
 function automatic void write_pmem();
     rd_data = 1'b1;
     ld_pmem = 1'b1;
-    pmem_write = 1'b1;
+    write_o = 1'b1;
 endfunction
 
 function automatic void returnToCPU();
@@ -128,6 +128,7 @@ begin : state_actions
                 end
                 resp_o = 1'b1;
             end
+            else set_defaults();
         end
         
         wb: 
@@ -198,6 +199,9 @@ always_ff @(posedge clk) begin
         counter <= counter + 1;
         state <= next_state; 
 
+        pmem_read <= 1'b0;
+        pmem_write <= 1'b0;
+
         if (read_o == 1'b1 && counter == 2'b00) begin 
             pmem_read <= read_o;
             pmem_write <= 1'b0;
@@ -218,7 +222,6 @@ always_ff @(posedge clk) begin
             pmem_write <= 1'b0; 
             counter <= 2'b01;
         end
-
     end
     mem_resp <= resp_o;
 end
