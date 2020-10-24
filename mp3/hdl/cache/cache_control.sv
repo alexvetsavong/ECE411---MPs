@@ -19,7 +19,7 @@ module cache_control (
     output logic ld_cpu, ld_pmem,
     output logic dirty_in, valid_in,       // control will determine valid and dirty values
     output datainmux_sel_t datain_mux_sel, // control logic will determine where data needs to come from
-
+    
     input logic dirty,
     input logic hit
 );

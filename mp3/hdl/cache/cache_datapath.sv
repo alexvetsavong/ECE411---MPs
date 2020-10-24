@@ -17,6 +17,7 @@ module cache_datapath #(
 
     // ports to cpu 
     input logic [31:0] mem_address,
+    input logic mem_resp, mem_read, mem_write,
 
     // ports to bus adapter 
     input logic [255:0] mem_wdata256,
@@ -36,7 +37,6 @@ module cache_datapath #(
     input logic rd_valid, rd_tag, rd_dirty, rd_lru, rd_data,
     input datainmux_sel_t datain_mux_sel, // control logic will determine where data needs to come form
     input logic dirty_in, valid_in,
-
 
     // control signals to fsm
     output logic dirty,
@@ -71,6 +71,8 @@ logic hit1, hit0, tag1_cmp, tag0_cmp;
 logic ld_valid1, ld_valid0;
 logic ld_tag1, ld_tag0;
 logic ld_dirty1, ld_dirty0;
+
+// logic[31:0] address_o;
 
 /* comparators and assignments to check for a hit/miss */
 comparator #(.width(s_tag)) tag1_check
@@ -170,11 +172,20 @@ assign mem_rdata256 = dataout;
 
 always_comb begin : comb_logic
     // tri-state buffers here
-    // pmem_wdata = (ld_pmem) ? dataout : 256'b0;
-    // mem_rdata256 = (ld_cpu) ? dataout : 256'b0;
+    // pmem_wdata = (ld_pmem) ? dataout : 256'h0;
+    // mem_rdata256 = (ld_cpu) ? dataout : 256'h0;
+    write_en_1 = 32'h0;
+    write_en_0 = 32'h0;
+    
+    if (ld_way1 & ld_data & mem_write)
+        write_en_1 = mem_byte_enable256;
+    else if (ld_way0 & ld_data & mem_write)
+        write_en_0 = mem_byte_enable256;
 
-    write_en_1 = (ld_way1 & ld_data) ? mem_byte_enable256 : 32'b0;
-    write_en_0 = (ld_way0 & ld_data) ? mem_byte_enable256 : 32'b0;
+    if (ld_way1 & ld_data & mem_read)
+        write_en_1 = 32'hffffffff;
+    else if (ld_way0 & ld_data & mem_read)
+        write_en_0 = 32'hffffffff;
 
     /* assignments to save on typing later */
     ld_valid0 = ld_valid & ld_way0;
@@ -188,7 +199,7 @@ always_comb begin : comb_logic
     hit1 = valid_1_o & tag1_cmp;
     hit0 = valid_0_o & tag0_cmp;
 
-    hit = hit1 & hit0; 
+    hit = hit1 | hit0; 
 
     dirty = dirty_1_o | dirty_0_o;
 
