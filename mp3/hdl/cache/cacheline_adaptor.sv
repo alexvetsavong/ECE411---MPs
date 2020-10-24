@@ -1,6 +1,3 @@
-`define BURST_SIZE 64
-`define LINE_SIZE 256
-
 module cacheline_adaptor
 (
     input clk,
@@ -23,108 +20,181 @@ module cacheline_adaptor
     input resp_i
 );
 
-int it;
-logic [`BURST_SIZE-1:0] b_buffer;
-logic [`LINE_SIZE-1:0] l_buffer;
+logic [63:0] local_burst, burst_o_save;
+logic [31:0] local_addr;
+logic [255:0] local_line, local_line_save, line_o_save;
 
-always_comb begin
-    address_o = address_i;
+logic curr_read_o, curr_resp_o;
 
-    b_buffer = line_i[64*it +: 64];
+// State machine logic
+enum logic[4:0] {RESET, READ_ADDRESS, READ0, READ1, READ2, READ3, READ_DONE, WRITE_ADDRESS, WRITE0, WRITE1, WRITE2, WRITE3, WRITE_DONE} curr_state, next_state;
 
-    line_o =  l_buffer;
-    burst_o = b_buffer;
+always_ff @(posedge clk) 
+begin: next_state_assignment
+    if (~reset_n) 
+        curr_state <= RESET;
+    else 
+        begin 
+            curr_state <= next_state; 
+            burst_o_save <= burst_o;
+            local_line_save <= local_line;
+            line_o_save <= line_o;
+        end
 end
 
-logic [31:0] count_reg = 0, count_next;
+always_comb 
+begin: next_state_logic 
+    next_state = curr_state;
 
-assign it = count_reg;
+    unique case(curr_state)
+        RESET: 
+            begin 
+                if (read_i == 1'b1 && write_i == 1'b0)
+                    next_state = READ_ADDRESS;
+                else if (read_i == 1'b0 && write_i == 1'b1)
+                    next_state = WRITE_ADDRESS;
+            end
 
-assign rst = ~reset_n;
+        // Read states
+        READ_ADDRESS: next_state = READ0;
+        READ0: 
+            begin
+                if (resp_i == 1'b1) begin 
+                    next_state = READ1;
+                end
+            end 
+        READ1: 
+            begin
+                next_state = READ2; 
+            end
+        READ2:
+            begin 
+                next_state = READ3;
+            end
+        READ3: 
+            begin
+                next_state = READ_DONE;
+            end
+        READ_DONE: next_state = RESET;
 
-enum int unsigned { 
-    idle,
-    ld, st,
-    finish
-} state, next_state;
+        // Write states 
+        WRITE_ADDRESS: 
+            begin 
+                next_state = WRITE0;
+            end 
+        WRITE0: 
+            begin 
+                if (resp_i == 1'b1) begin 
+                    next_state = WRITE1;
+                end
+            end
+        WRITE1: 
+            begin 
+                next_state = WRITE2;
+            end 
+        WRITE2: 
+            begin 
+                next_state = WRITE3; 
+            end 
+        WRITE3: 
+            begin 
+                next_state = WRITE_DONE;
+            end 
+        WRITE_DONE:
+            begin 
+                next_state = RESET;
+            end 
+        default: ; 
+    endcase
+end 
 
-function void set_defaults();
-    read_o = 0;
+always_comb 
+begin: state_actions
     write_o = 0;
     resp_o = 0;
-endfunction
+    address_o = address_i;
+    burst_o = burst_o_save;
+    local_line = local_line_save;
+    line_o = line_o_save;
+    read_o = 0;
 
-/* State machine next-state logic */
-always_comb begin
-    case (state)
-        idle:
-        begin
-            if (read_i) begin 
-                next_state = ld;
-                count_next = 0; 
+    case(curr_state)
+        RESET: 
+            begin 
+                resp_o = 1'b0; 
+                read_o = 1'b0;
+                write_o = 1'b0;
+            end 
+        READ_ADDRESS: 
+            begin 
+                resp_o = 1'b0;
             end
-            else if (write_i) begin 
-                next_state = st;
-                count_next = 0;
+        READ0: 
+            begin 
+                resp_o = 1'b0;
+                read_o = 1'b1;
+                if (read_i == 1'b0 && resp_i == 1'b1) begin 
+                    local_line[63:0] = burst_i; 
+                end
             end
-            else begin
-                next_state = idle;
-                count_next = 0;
+        READ1:
+            begin
+                resp_o = 1'b0;
+                read_o = 1'b1;
+                local_line[127:64] = burst_i; 
+            end  
+        READ2:
+            begin 
+                resp_o = 1'b0;
+                read_o = 1'b1;
+                local_line[191:128] = burst_i; 
             end
-        end
+        READ3: 
+            begin 
+                resp_o = 1'b0;
+                read_o = 1'b1;
+                local_line[255:192] = burst_i; 
+            end
+        READ_DONE:
+            begin 
+                line_o = local_line; 
+                resp_o = 1'b1;
+            end
+        WRITE_ADDRESS: 
+            begin 
+                resp_o = 1'b0; 
+            end
+        WRITE0:
+            begin 
+                write_o = 1'b1;
+                resp_o = 1'b0;
+                burst_o = line_i[63:0];
+            end 
+        WRITE1: 
+            begin 
+                burst_o = line_i[127:64];
+                write_o = 1'b1; 
+                resp_o = 1'b0;
+            end
+        WRITE2: 
+            begin 
 
-        ld: 
-        begin 
-            if (resp_i) count_next = count_reg + 1;
-            else count_next = 0;
-            
-            if (count_reg == 3) begin count_next = 4; next_state = finish; end
-            else next_state = ld; 
-        end
-
-        st: 
-        begin 
-            if (resp_i) count_next = count_reg + 1;
-            else count_next = 0;
-            
-            if (count_reg == 3) begin count_next = 4; next_state = finish; end
-            else next_state = st;
-        end
-
-        finish: begin count_next = 0; next_state = idle; end
-        default: begin next_state = state; count_next = 0; end
+                burst_o = line_i[191:128]; 
+                write_o = 1'b1; 
+                resp_o = 1'b0;
+            end
+        WRITE3: 
+            begin 
+                burst_o = line_i[255:192];
+                write_o = 1'b1;
+                resp_o = 1'b0;
+            end
+        WRITE_DONE:
+            begin 
+                resp_o = 1'b1;
+            end 
+        default: ;
     endcase
-end
-
-/* State action logic */
-always_comb begin
-    set_defaults();
-    case (state)
-        idle: set_defaults();
-
-        ld: read_o = 1;
-        st: write_o = 1;
-
-        finish: begin 
-            read_o = 0; 
-            resp_o = 1; 
-        end
-
-        default: set_defaults();
-    endcase
-end
-
-/* State machine transitions on clock edge */
-always_ff @(posedge clk) begin
-    if(rst) begin
-        state <= idle; 
-        count_reg <= 0;
-    end
-    else begin
-        state <= next_state; 
-        count_reg <= count_next;
-    end
-    l_buffer[64*it +: 64] <= burst_i;
 end
 
 endmodule : cacheline_adaptor

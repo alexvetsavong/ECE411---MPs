@@ -1,5 +1,6 @@
 /* MODIFY. Your cache design. It contains the cache
 controller, cache datapath, and bus adapter. */
+import datamux::*;
 
 module cache #(
     parameter s_offset = 5,
@@ -36,9 +37,9 @@ logic [255:0] mem_rdata256, mem_wdata256;
 logic [31:0] mem_byte_enable256;
 logic ld_valid, ld_tag, ld_dirty, ld_lru, ld_data;
 logic rd_valid, rd_tag, rd_dirty, rd_lru, rd_data;
-logic load_cpu, load_pmem;
+logic ld_cpu, ld_pmem;
 logic dirty_in, valid_in;    // control will determine valid and dirty values
-logic datain_mux_sel;        // control logic will determine where data needs to come from
+datainmux_sel_t datain_mux_sel;        // control logic will determine where data needs to come from
 logic dirty, hit;
 
 cache_control control

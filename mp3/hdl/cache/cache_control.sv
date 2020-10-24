@@ -1,5 +1,6 @@
 /* MODIFY. The cache controller. It is a state machine
 that controls the behavior of the cache. */
+import datamux::*;
 
 module cache_control (
     input clk, 
@@ -15,46 +16,98 @@ module cache_control (
     // datapath
     output logic ld_valid, ld_tag, ld_dirty, ld_lru, ld_data,
     output logic rd_valid, rd_tag, rd_dirty, rd_lru, rd_data,
-    output logic load_cpu, load_pmem,
-    output logic dirty_in, valid_in,    // control will determine valid and dirty values
-    output logic datain_mux_sel,        // control logic will determine where data needs to come from
+    output logic ld_cpu, ld_pmem,
+    output logic dirty_in, valid_in,       // control will determine valid and dirty values
+    output datainmux_sel_t datain_mux_sel, // control logic will determine where data needs to come from
 
     input logic dirty,
     input logic hit
 );
 
-function void set_defaults();
+logic read_o, write_o, resp_o;
+logic [1:0] counter;
+
+function automatic void set_defaults();
     //TODO: write out all the default values for every control signal here
-    ld_valid = 0;
-    ld_dirty = 0;
-    ld_tag = 0;
-    ld_lru = 0;
-    ld_data = 0;
+    ld_valid = 1'b0;
+    ld_dirty = 1'b0;
+    ld_tag = 1'b0;
+    ld_lru = 1'b0;
+    ld_data = 1'b0;
 
-    rd_valid = 1;
-    rd_dirty = 1;
-    rd_tag = 1;
-    rd_lru = 1;
-    rd_data = 1;
+    rd_valid = 1'b1;
+    rd_dirty = 1'b1;
+    rd_tag = 1'b1;
+    rd_lru = 1'b1;
+    rd_data = 1'b1;
 
-    load_cpu = 0;
-    load_pmem = 0;
-    mem_resp = 0;
+    ld_cpu = 1'b0;
+    ld_pmem = 1'b0;
+    resp_o = 1'b0;
     
-    pmem_read = 0;
-    pmem_write = 0;
-    datain_mux_sel = 0;
+    // pmem_read = 1'b0;
+    read_o = 1'b0;
+    // pmem_write = 1'b0;
+    write_o = 1'b0;
 
-    dirty_in = 0;
-    valid_in = 0;
+    datain_mux_sel = pmem_rdata;
 
+    dirty_in = 1'b0;
+    valid_in = 1'b0;
 endfunction
 
-enum int unsigned {
-    idle_check_tag, 
-    allocate, 
-    write_back,
-    send
+function automatic void writeFromCPU();
+    datain_mux_sel = mem_wdata;
+    rd_data = 1'b0;
+    ld_data = 1'b1;
+endfunction
+
+function automatic void read_pmem();
+    datain_mux_sel = pmem_rdata;
+    read_o = 1'b1;
+    rd_data = 1'b0;
+    ld_data = 1'b1;
+endfunction
+
+function automatic void write_pmem();
+    rd_data = 1'b1;
+    ld_pmem = 1'b1;
+    pmem_write = 1'b1;
+endfunction
+
+function automatic void returnToCPU();
+    ld_data = 1'b0;
+    rd_data = 1'b1;
+    ld_cpu = 1'b1;
+endfunction
+
+function automatic void setValidBit(logic value);
+    valid_in = value;
+    rd_valid = 1'b0;
+    ld_valid = 1'b1;
+endfunction
+
+function automatic void setDirtyBit(logic value);
+    dirty_in = value;
+    rd_dirty = 1'b0;
+    ld_dirty = 1'b1;
+endfunction
+
+function automatic void setTag();
+    rd_tag = 1'b0;
+    ld_tag = 1'b1;
+endfunction
+
+function automatic void setLRU();
+    rd_lru = 1'b0;
+    ld_lru = 1'b1;
+endfunction
+
+enum logic[2:0] {
+    idle,
+    check,
+    wb, read,
+    done
 } state, next_state;
 
 // the logic for determining state actions
@@ -63,55 +116,42 @@ begin : state_actions
     set_defaults();
     case(state)
         // TODO: implement the state actions
-        idle_check_tag: begin 
-            if ((mem_read | mem_write) & hit) begin
-                rd_lru = 0;
-                ld_lru = 1;
+        idle: set_defaults();
+        
+        check: 
+        begin
+            if (hit) begin 
+                if (mem_read) returnToCPU();
+                else if (mem_write) begin 
+                    writeFromCPU(); 
+                    setDirtyBit(1'b1); 
+                end
+                resp_o = 1'b1;
             end
         end
         
-        allocate: begin 
-            datain_mux_sel = 0;
-            rd_lru = 1;
-            rd_data = 0;
-            ld_data = 1;
-
-            valid_in = 1;
-            rd_valid = 0;
-            ld_valid = 1;
-            pmem_read = 1;
+        wb: 
+        begin 
+            write_pmem();
         end
-
-        write_back: begin
-            rd_lru = 1; 
-            rd_data = 1;
-            load_pmem = 1;
-            pmem_write = 1;
+        
+        read:
+        begin
+            read_pmem();
+            setValidBit(1'b1);
+            setDirtyBit(1'b0);
+            setTag();
         end
-
-        send: begin
-            if (mem_write) begin
-                datain_mux_sel = 1;
-                ld_data = 1;
-                rd_data = 0;
-
-                dirty_in = 1;
-                ld_dirty = 1;
-                rd_dirty = 0;
+        
+        done: begin
+            if (mem_read) returnToCPU();
+            else if (mem_write) begin 
+                writeFromCPU(); 
+                setDirtyBit(1'b1); 
             end
-
-            else if (mem_read) begin
-                dirty_in = 0;
-                rd_dirty = 0;
-                ld_dirty = 1;
-
-                datain_mux_sel = 0;
-                rd_data = 1;
-                load_cpu = 1;
-            end
-            mem_resp = 1;
+            resp_o = 1'b1;
         end
-
+        
         default: set_defaults();
     endcase
 end
@@ -120,36 +160,67 @@ end
 always_comb 
 begin : next_state_logic 
     case(state)
-        //TODO: implement next_state logic
-        idle_check_tag: begin
-            if (hit == 1) next_state = send;
-            else if (hit == 0 && dirty == 0) next_state = allocate;
-            else if (hit == 0 && dirty == 1) next_state = write_back;
-            else next_state = idle_check_tag;
+
+        idle: begin
+            if (mem_read || mem_write) next_state = check;
+            else next_state = idle;
         end
 
-        allocate: begin 
-            if (pmem_resp == 1) next_state = send;
-            else next_state = allocate; 
+        check: begin 
+            if (hit) next_state = idle;
+            else if (dirty) next_state = wb;
+            else  next_state = read;
+        end
+        
+        wb: begin
+            if (pmem_resp) next_state = read;
+            else next_state = wb;
         end
 
-        write_back: begin
-            if (pmem_resp == 1) next_state = allocate;
-            else next_state = write_back;
+        read: begin
+            if (pmem_resp) next_state = done;
+            else next_state = read;
         end
 
-        send: next_state = idle_check_tag;
+        done: next_state = idle;
 
-        default: next_state = state;
+        default: next_state = idle;
     endcase
 end
 
 // fsm state transitions on clk signal
 always_ff @(posedge clk) begin
     if(rst) begin
-        state <= idle_check_tag;
+        state <= idle;
+        counter <= 2'b00;
     end
-    else state <= next_state;
+    else begin 
+        counter <= counter + 1;
+        state <= next_state; 
+
+        if (read_o == 1'b1 && counter == 2'b00) begin 
+            pmem_read <= read_o;
+            pmem_write <= 1'b0;
+        end
+        else if (read_o == 1'b1 && counter == 2'b01) begin
+            pmem_read <= 1'b0; 
+            pmem_write <= 1'b0; 
+            counter <= 2'b01;
+        end
+
+        if (write_o == 1'b1 && counter == 2'b00) begin 
+            pmem_read <= 1'b0;
+            pmem_write <= write_o;
+        end
+
+        else if (write_o == 1'b1 && counter == 2'b01) begin
+            pmem_read <= 1'b0; 
+            pmem_write <= 1'b0; 
+            counter <= 2'b01;
+        end
+
+    end
+    mem_resp <= resp_o;
 end
 
 endmodule : cache_control

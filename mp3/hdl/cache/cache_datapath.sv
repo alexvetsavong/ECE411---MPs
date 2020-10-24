@@ -1,6 +1,7 @@
 /* MODIFY. The cache datapath. It contains the data,
 valid, dirty, tag, and LRU arrays, comparators, muxes,
 logic gates and other supporting logic. */
+import datamux::*;
 
 module cache_datapath #(
     parameter s_offset = 5,
@@ -18,22 +19,22 @@ module cache_datapath #(
     input logic [31:0] mem_address,
 
     // ports to bus adapter 
-    input [255:0] mem_wdata256,
-    input [31:0] mem_byte_enable256,
-    output [255:0] mem_rdata256,
+    input logic [255:0] mem_wdata256,
+    input logic [31:0] mem_byte_enable256,
+    output logic [255:0] mem_rdata256,
 
     // outputs to cacheline adaptor
-    output [255:0] pmem_wdata, 
-    output [31:0] pmem_address,
+    output logic [255:0] pmem_wdata, 
+    output logic [31:0] pmem_address,
 
     // inputs from cacheline adaptor
-    input [255:0] pmem_rdata,
+    input logic [255:0] pmem_rdata,
 
     // control signals from fsm
     input logic ld_valid, ld_tag, ld_dirty, ld_lru, ld_data,
-    input logic load_cpu, load_pmem,
+    input logic ld_cpu, ld_pmem,
     input logic rd_valid, rd_tag, rd_dirty, rd_lru, rd_data,
-    input logic datain_mux_sel, // control logic will determine where data needs to come form
+    input datainmux_sel_t datain_mux_sel, // control logic will determine where data needs to come form
     input logic dirty_in, valid_in,
 
 
@@ -45,7 +46,8 @@ module cache_datapath #(
 logic [2:0] index;
 
 /* mux select values */
-logic dataout_mux_sel;
+dataoutmux_sel_t dataout_mux_sel;
+
 /* outputs for each metadata array */
 logic valid_1_o; 
 logic [23:0] tag_1_o; 
@@ -152,19 +154,24 @@ data_array way1
     .datain(datain), .dataout(dataout_1)
 );
 
-assign pmem_address = mem_address;
+assign pmem_address = {mem_address[31:5], 5'h0};
 
 assign tag_in = mem_address[31:8]; 
 assign index = mem_address[7:5];
+assign dataout_mux_sel = dataoutmux_sel_t'(lru_out);
 
-assign mem_rdata256 = (load_cpu) ? dataout : 256'b0;
-assign pmem_wdata = (load_pmem) ? dataout : 256'b0;
+/* this should select the other way as lru on each read/write */
+assign lru_in = ~(lru_out);
 
-assign dataout_mux_sel = lru_out;
+assign ld_way0 = ~(lru_out);
+assign ld_way1 = lru_out;
+assign pmem_wdata = dataout;
+assign mem_rdata256 = dataout;
 
 always_comb begin : comb_logic
-    ld_way0 = ~(lru_out);
-    ld_way1 = lru_out;
+    // tri-state buffers here
+    // pmem_wdata = (ld_pmem) ? dataout : 256'b0;
+    // mem_rdata256 = (ld_cpu) ? dataout : 256'b0;
 
     write_en_1 = (ld_way1 & ld_data) ? mem_byte_enable256 : 32'b0;
     write_en_0 = (ld_way0 & ld_data) ? mem_byte_enable256 : 32'b0;
@@ -178,12 +185,11 @@ always_comb begin : comb_logic
     ld_tag1 = ld_tag & ld_way1;
     ld_dirty1 = ld_dirty & ld_way1;
 
-    /* this will select the other way as lru on each read/write */
-    lru_in = ~(lru_out);
-
     hit1 = valid_1_o & tag1_cmp;
     hit0 = valid_0_o & tag0_cmp;
+
     hit = hit1 & hit0; 
+
     dirty = dirty_1_o | dirty_0_o;
 
 end : comb_logic
@@ -191,13 +197,13 @@ end : comb_logic
 /* logic for the muxes in the datapath */
 always_comb begin : mux_logic
     case(datain_mux_sel)
-        1'b0: datain = pmem_rdata;
-        1'b1: datain = mem_wdata256;
+        datamux::pmem_rdata: datain = pmem_rdata;
+        datamux::mem_wdata:  datain = mem_wdata256;
     endcase
 
     case(dataout_mux_sel)
-        1'b0: dataout = dataout_0;
-        1'b1: dataout = dataout_1;
+        datamux::way0: dataout = dataout_0;
+        datamux::way1: dataout = dataout_1;
     endcase
 end : mux_logic
 
